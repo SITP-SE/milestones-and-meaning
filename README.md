@@ -29,15 +29,15 @@ http://localhost:3000
 
 ## Commands
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Create a production build |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format with Prettier |
-| `npm run format:check` | Check formatting |
-| `npm test` | Run Jest tests |
-| `npm run test:e2e` | Run Playwright tests |
+| Command                | Description                  |
+| ---------------------- | ---------------------------- |
+| `npm run dev`          | Start the development server |
+| `npm run build`        | Create a production build    |
+| `npm run lint`         | Run ESLint                   |
+| `npm run format`       | Format with Prettier         |
+| `npm run format:check` | Check formatting             |
+| `npm test`             | Run Jest tests               |
+| `npm run test:e2e`     | Run Playwright tests         |
 
 ## Testing
 
