@@ -1,36 +1,233 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+
+# Milestones & Meaning
+
+A website for **Milestones & Meaning**, a life-transition and relationship support practice.
+
+</div>
+
+---
+
+## Overview
+
+This repository contains the Milestones & Meaning web application.
+
+The project is built with **Next.js** and uses a small, consistent development toolchain for formatting, testing, and continuous integration.
+
+## Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | Next.js |
+| Language | JavaScript |
+| UI | React |
+| Styling | Tailwind CSS |
+| Linting | ESLint |
+| Formatting | Prettier |
+| Unit Testing | Jest + React Testing Library |
+| End-to-End Testing | Playwright |
+| Continuous Integration | GitHub Actions |
+| Dependency Updates | Dependabot |
+
+---
+
+## Requirements
+
+Before running the project, make sure you have:
+
+- **Node.js 24**
+- **npm**
+
+The expected Node version is also defined in:
+
+```text
+.node-version
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm ci
+```
+
+### 2. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Open the application
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Available Commands
 
-To learn more about Next.js, take a look at the following resources:
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format the project with Prettier |
+| `npm run format:check` | Check formatting without changing files |
+| `npm test` | Run Jest tests |
+| `npm run test:watch` | Run Jest in watch mode |
+| `npm run test:coverage` | Run Jest with coverage |
+| `npm run test:e2e` | Run Playwright end-to-end tests |
+| `npm run test:e2e:ui` | Open the Playwright test UI |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Testing
 
-## Deploy on Vercel
+### Unit and Component Tests
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Unit and component tests use:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Jest
+- React Testing Library
+
+Tests are stored in:
+
+```text
+src/__tests__/
+```
+
+Run them with:
+
+```bash
+npm test
+```
+
+### End-to-End Tests
+
+End-to-end tests use **Playwright**.
+
+Tests are stored in:
+
+```text
+e2e/
+```
+
+Run them with:
+
+```bash
+npm run test:e2e
+```
+
+### Browser Coverage
+
+Local Playwright tests run against:
+
+- Chromium
+- Firefox
+
+GitHub Actions also runs:
+
+- WebKit
+
+This gives the project additional Safari-like browser coverage in CI.
+
+---
+
+## Code Quality
+
+The project uses **ESLint** for code-quality checks and **Prettier** for consistent formatting.
+
+Tailwind CSS classes are automatically ordered using:
+
+```text
+prettier-plugin-tailwindcss
+```
+
+Before opening a pull request, run:
+
+```bash
+npm run format:check
+npm run lint
+npm test
+npm run test:e2e
+npm run build
+npm audit
+```
+
+---
+
+## Continuous Integration
+
+GitHub Actions runs automatically on:
+
+- Pull requests targeting `main`
+- Pushes to `main`
+
+The CI workflow checks:
+
+1. Formatting
+2. ESLint
+3. Jest tests
+4. Playwright tests
+5. Production build
+
+A successful CI run helps ensure changes are ready to be merged.
+
+---
+
+## Dependency Updates
+
+Dependabot checks for updates to:
+
+- npm dependencies
+- GitHub Actions
+
+Dependency checks run weekly.
+
+---
+
+## Development Workflow
+
+Development should normally happen on a dedicated branch instead of directly on `main`.
+
+Create a branch:
+
+```bash
+git switch -c feat/example-feature
+```
+
+When the work is ready:
+
+1. Commit the changes.
+2. Push the branch.
+3. Open a pull request into `main`.
+4. Wait for CI checks to pass.
+5. Review and merge the pull request.
+
+---
+
+## Project Structure
+
+```text
+.
+├── e2e/                  # Playwright end-to-end tests
+├── public/               # Static assets
+├── src/
+│   ├── __tests__/        # Jest tests
+│   └── app/              # Next.js App Router
+├── .github/
+│   ├── workflows/        # GitHub Actions
+│   └── dependabot.yml    # Dependency update configuration
+├── eslint.config.mjs
+├── jest.config.mjs
+├── playwright.config.js
+├── .prettierrc
+└── package.json
+```
+
+> The project structure will grow as application features are added.
