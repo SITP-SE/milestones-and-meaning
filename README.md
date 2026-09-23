@@ -16,18 +16,18 @@ The project is built with **Next.js** and uses a small, consistent development t
 
 ## Tech Stack
 
-| Area | Technology |
-| --- | --- |
-| Framework | Next.js |
-| Language | JavaScript |
-| UI | React |
-| Styling | Tailwind CSS |
-| Linting | ESLint |
-| Formatting | Prettier |
-| Unit Testing | Jest + React Testing Library |
-| End-to-End Testing | Playwright |
-| Continuous Integration | GitHub Actions |
-| Dependency Updates | Dependabot |
+| Area                   | Technology                   |
+| ---------------------- | ---------------------------- |
+| Framework              | Next.js                      |
+| Language               | JavaScript                   |
+| UI                     | React                        |
+| Styling                | Tailwind CSS                 |
+| Linting                | ESLint                       |
+| Formatting             | Prettier                     |
+| Unit Testing           | Jest + React Testing Library |
+| End-to-End Testing     | Playwright                   |
+| Continuous Integration | GitHub Actions               |
+| Dependency Updates     | Dependabot                   |
 
 ---
 
@@ -70,19 +70,19 @@ http://localhost:3000
 
 ## Available Commands
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Create a production build |
-| `npm run start` | Start the production server |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format the project with Prettier |
-| `npm run format:check` | Check formatting without changing files |
-| `npm test` | Run Jest tests |
-| `npm run test:watch` | Run Jest in watch mode |
-| `npm run test:coverage` | Run Jest with coverage |
-| `npm run test:e2e` | Run Playwright end-to-end tests |
-| `npm run test:e2e:ui` | Open the Playwright test UI |
+| Command                 | Description                             |
+| ----------------------- | --------------------------------------- |
+| `npm run dev`           | Start the development server            |
+| `npm run build`         | Create a production build               |
+| `npm run start`         | Start the production server             |
+| `npm run lint`          | Run ESLint                              |
+| `npm run format`        | Format the project with Prettier        |
+| `npm run format:check`  | Check formatting without changing files |
+| `npm test`              | Run Jest tests                          |
+| `npm run test:watch`    | Run Jest in watch mode                  |
+| `npm run test:coverage` | Run Jest with coverage                  |
+| `npm run test:e2e`      | Run Playwright end-to-end tests         |
+| `npm run test:e2e:ui`   | Open the Playwright test UI             |
 
 ---
 
