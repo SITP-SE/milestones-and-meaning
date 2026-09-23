@@ -214,20 +214,14 @@ When the work is ready:
 ## Project Structure
 
 ```text
-.
-├── e2e/                  # Playwright end-to-end tests
-├── public/               # Static assets
-├── src/
-│   ├── __tests__/        # Jest tests
-│   └── app/              # Next.js App Router
-├── .github/
-│   ├── workflows/        # GitHub Actions
-│   └── dependabot.yml    # Dependency update configuration
-├── eslint.config.mjs
-├── jest.config.mjs
-├── playwright.config.js
-├── .prettierrc
-└── package.json
+src/
+├── app/            # Next.js routes, pages, layouts, and route handlers
+├── components/
+│   ├── layout/     # Shared layout components such as navigation and footer
+│   └── ui/         # Reusable UI components such as buttons and inputs
+├── lib/            # Shared utilities, constants, and reusable helpers
+├── server/         # Server-only business logic and integrations
+└── __tests__/      # Jest unit and component tests
 ```
 
-> The project structure will grow as application features are added.
+The structure is intentionally kept small. Additional directories should only be added when the application actually needs them.
