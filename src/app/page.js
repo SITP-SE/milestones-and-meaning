@@ -1,9 +1,15 @@
-import Image from 'next/image';
+import About from '@/components/home/sections/About';
+import Hero from '@/components/home/sections/Hero';
+import Journey from '@/components/home/sections/Journey';
+import Services from '@/components/home/sections/Services';
 
 export default function Home() {
   return (
-    <main>
-      <h1>Milestones & Meaning</h1>
-    </main>
+    <>
+      <Hero />
+      <Journey />
+      <About />
+      <Services />
+    </>
   );
 }
