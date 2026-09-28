@@ -50,15 +50,15 @@ export default function Journey() {
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center">
         <div className="text-brand flex items-center gap-4">
           <span aria-hidden="true" className="bg-brand/60 h-px w-12 sm:w-20" />
-          <p className="text-body tracking-wide sm:text-eyebrow">THE JOURNEY</p>
+          <p className="text-body sm:text-eyebrow tracking-wide">THE JOURNEY</p>
           <span aria-hidden="true" className="bg-brand/60 h-px w-12 sm:w-20" />
         </div>
 
-        <h2 className="font-heading text-ink mt-5 text-center text-[1.5rem] leading-tight sm:text-h2">
+        <h2 className="font-heading text-ink sm:text-h2 mt-5 text-center text-[1.5rem] leading-tight">
           Support for every chapter.
         </h2>
 
-        <p className="text-body text-ink mt-4 max-w-[640px] text-center sm:text-lead">
+        <p className="text-body text-ink sm:text-lead mt-4 max-w-[640px] text-center">
           Life moves in cycles, and every chapter deserves care, intention and support. We&apos;re
           here for the big moments and the in between
         </p>
@@ -83,7 +83,9 @@ export default function Journey() {
                   <h3 className="font-heading text-[1.25rem] leading-none sm:text-[1.75rem]">
                     {chapter.title}
                   </h3>
-                  <p className="text-body font-light tracking-wide uppercase hidden sm:block">{chapter.eyebrow}</p>
+                  <p className="text-body hidden font-light tracking-wide uppercase sm:block">
+                    {chapter.eyebrow}
+                  </p>
                   <p className="text-body">{chapter.body}</p>
                   <p className="text-body mt-auto pt-2 underline sm:pt-6">
                     {chapter.cta} <span aria-hidden="true">&rarr;</span>

@@ -46,7 +46,7 @@ export default function Services() {
         <h2 className="font-heading text-ink text-center text-[1.75rem] leading-tight sm:text-[2.5rem] lg:text-[3.125rem]">
           Our Services
         </h2>
-        <p className="text-body text-ink mt-3 max-w-[640px] text-center sm:text-lead">
+        <p className="text-body text-ink sm:text-lead mt-3 max-w-[640px] text-center">
           Thoughtfully designed services to support your relationship and your journey together
         </p>
 
