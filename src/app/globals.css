@@ -1,26 +1,53 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Palette */
+  --color-cream: #f7ece1;
+  --color-shell: #fbf5ef;
+  --color-paper: #fefaf7;
+  --color-blush: #e0b0a0;
+  --color-terracotta: #b06a56;
+  --color-brand: #521909;
+  --color-ink: #2e2b2b;
+  --color-clay: #d4a48f;
+  --color-peach: #e8c4b4;
+  --color-sand: #f3ddd4;
+  --color-cocoa: #6b4e46;
+  --color-ember: #c4452a;
+  --color-copper: #c45435;
+  --color-stone: #525252;
+
+  /* Typefaces */
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-wordmark: var(--font-libertinus), ui-serif, Georgia, serif;
+  --font-script: var(--font-fasthand), ui-serif, cursive;
+
+  /* Type scale. 0.9375rem (15px) is the floor — never go below it. */
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.2;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.5;
+  --text-eyebrow: 1.25rem;
+  --text-eyebrow--line-height: 1;
+  --text-script: clamp(1.5rem, 1.125rem + 1.2vw, 1.875rem);
+  --text-script--line-height: 1.2;
+  --text-h2: clamp(1.75rem, 1.2rem + 1.8vw, 2.3125rem);
+  --text-h2--line-height: 1.1;
+  --text-h1: clamp(2.25rem, 1.35rem + 3vw, 3.75rem);
+  --text-h1--line-height: 1.2;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    color-scheme: light;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    background-color: var(--color-shell);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.2;
+  }
 }
