@@ -4,7 +4,10 @@ export default function ServiceSteps({ steps }) {
       {steps.map((step, index) => (
         <li key={step.title} className="flex items-center gap-4 md:contents">
           {index > 0 && (
-            <span aria-hidden="true" className="bg-blush/65 hidden h-[100px] w-px shrink-0 md:block" />
+            <span
+              aria-hidden="true"
+              className="bg-blush/65 hidden h-[100px] w-px shrink-0 md:block"
+            />
           )}
           <div className="flex items-center gap-4">
             <span className="bg-apricot text-lead flex size-[50px] shrink-0 items-center justify-center rounded-full text-white">

@@ -21,8 +21,10 @@ export default function TrustBar() {
           <div className="flex min-w-0 items-center gap-2 px-2 py-3 lg:gap-5 lg:p-2.5">
             <Icon className="text-terracotta h-auto w-5 shrink-0 lg:w-10" />
             <div className="flex min-w-0 flex-col gap-1 lg:gap-[9px]">
-              <p className="text-ink text-[0.8125rem] leading-tight font-bold lg:text-body">{title}</p>
-              <p className="text-ink text-[0.8125rem] leading-tight lg:text-body">{detail}</p>
+              <p className="text-ink lg:text-body text-[0.8125rem] leading-tight font-bold">
+                {title}
+              </p>
+              <p className="text-ink lg:text-body text-[0.8125rem] leading-tight">{detail}</p>
             </div>
           </div>
         </li>

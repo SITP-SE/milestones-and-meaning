@@ -9,8 +9,8 @@ export default function ServicePrompt({ title, body, cta }) {
       <div className="flex min-w-0 flex-1 items-stretch gap-3 sm:gap-4">
         <span aria-hidden="true" className="bg-terracotta w-[5px] shrink-0" />
         <div>
-          <p className="text-body text-ink font-bold sm:text-lead">{title}</p>
-          <p className="text-body text-ink mt-1 leading-normal sm:mt-2 sm:text-lead">{body}</p>
+          <p className="text-body text-ink sm:text-lead font-bold">{title}</p>
+          <p className="text-body text-ink sm:text-lead mt-1 leading-normal sm:mt-2">{body}</p>
         </div>
       </div>
       <span className="border-terracotta text-terracotta text-body flex w-full items-center rounded-[10px] border-2 bg-transparent px-4 py-2.5 font-medium sm:hidden">
