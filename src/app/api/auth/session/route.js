@@ -67,3 +67,20 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Authentication failed.' }, { status: 401 });
   }
 }
+
+export async function DELETE() {
+  const response = NextResponse.json({ success: true });
+
+  // Logging out means removing the server-managed session cookie.
+  // The browser-side Firebase user was already signed out after login,
+  // so this cookie is what actually controls access to the admin area.
+  response.cookies.set(SESSION_COOKIE_NAME, '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 0,
+  });
+
+  return response;
+}
