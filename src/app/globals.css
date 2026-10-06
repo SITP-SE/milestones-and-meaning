@@ -16,11 +16,15 @@
   --color-ember: #c4452a;
   --color-copper: #c45435;
   --color-stone: #525252;
+  --color-linen: #cebeaf;
+  --color-ivory: #fdfaf5;
+  --color-apricot: #e7ab89;
+  --color-mist: #a6a6a6;
 
   /* Typefaces */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
-  --font-wordmark: var(--font-libertinus), ui-serif, Georgia, serif;
+  --font-wordmark: var(--font-inter), ui-serif, Georgia, serif;
   --font-script: var(--font-fasthand), ui-serif, cursive;
 
   /* Type scale. 0.9375rem (15px) is the floor — never go below it. */

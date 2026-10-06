@@ -15,8 +15,6 @@ const roboto = Roboto({
   display: 'swap',
 });
 
-// Loaded locally so Next can measure the file and build a size-matched fallback.
-// next/font/google has no precomputed metrics for Libertinus Serif yet.
 const libertinusSerif = localFont({
   src: './fonts/libertinus-serif-latin.woff2',
   variable: '--font-libertinus',
