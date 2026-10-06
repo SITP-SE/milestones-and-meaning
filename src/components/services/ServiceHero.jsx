@@ -1,0 +1,48 @@
+import Image from 'next/image';
+import { MessageIcon } from '@/components/ui/icons';
+import ServiceButton from './ServiceButton';
+
+const backgrounds = {
+  linen: 'bg-linen',
+  cream: 'bg-cream',
+};
+
+export default function ServiceHero({ eyebrow, headline, lines, cta, image, tone = 'linen' }) {
+  return (
+    <section className={backgrounds[tone] ?? 'bg-linen'}>
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-10 px-6 py-16 lg:flex-row lg:items-center lg:gap-[50px] lg:px-[50px] lg:pt-[100px] lg:pb-[50px]">
+        <div className="flex w-full max-w-[610px] flex-col items-center gap-[50px] text-center lg:items-start lg:text-left">
+          <div className="flex flex-col gap-5">
+            <p className="text-lead text-terracotta uppercase">{eyebrow}</p>
+            <h1 className="font-wordmark text-ink text-[clamp(2.25rem,1.4rem+2.4vw,3.125rem)] leading-none">
+              {headline.split('\n').map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <div className="text-lead text-ink leading-normal">
+              {lines.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
+            </div>
+          </div>
+          <ServiceButton href={cta.href}>
+            {cta.icon !== false && <MessageIcon className="size-5" />}
+            {cta.label}
+          </ServiceButton>
+        </div>
+        <div className="relative aspect-square w-full max-w-[400px] overflow-hidden rounded-[10px]">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            priority
+            sizes="(min-width: 1024px) 400px, 100vw"
+            className="object-cover"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,18 +1,67 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import MobileMenu from './MobileMenu';
 
 const navLinks = [
-  { label: 'Home', href: '/', current: true },
-  { label: 'Services', href: '/#services' },
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
   { label: 'About Us', href: '/#about' },
   { label: 'Resources', href: '/#resources' },
   { label: 'Contact us', href: '/#contact' },
 ];
 
+function isCurrent(pathname, href) {
+  if (href === '/') return pathname === '/';
+  if (href.startsWith('/#')) return false;
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function Navbar() {
+  const pathname = usePathname();
+  const lastY = useRef(0);
+  const [hidden, setHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const links = navLinks.map((link) => ({
+    ...link,
+    current: isCurrent(pathname, link.href),
+  }));
+
+  useEffect(() => {
+    if (menuOpen) setHidden(false);
+  }, [menuOpen]);
+
+  useEffect(() => {
+    lastY.current = window.scrollY;
+
+    function onScroll() {
+      const y = window.scrollY;
+      const delta = y - lastY.current;
+
+      if (menuOpen || y < 8) {
+        setHidden(false);
+      } else if (delta > 6) {
+        setHidden(true);
+      } else if (delta < -6) {
+        setHidden(false);
+      }
+
+      lastY.current = y;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [menuOpen]);
+
   return (
-    <header className="border-terracotta bg-shell relative w-full border-b">
+    <header
+      className={`border-terracotta bg-shell sticky top-0 z-40 w-full border-b transition-transform duration-300 ease-out motion-reduce:transition-none ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
+    >
       <nav
         aria-label="Main"
         className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-6 py-3.5 lg:px-[50px] lg:py-2.5"
@@ -32,7 +81,7 @@ export default function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-x-5 lg:flex">
-          {navLinks.map(({ label, href, current }) => (
+          {links.map(({ label, href, current }) => (
             <li key={label}>
               <Link
                 href={href}
@@ -59,7 +108,7 @@ export default function Navbar() {
           <span aria-hidden="true">&rarr;</span>
         </Link>
 
-        <MobileMenu links={navLinks} />
+        <MobileMenu links={links} onOpenChange={setMenuOpen} />
       </nav>
     </header>
   );

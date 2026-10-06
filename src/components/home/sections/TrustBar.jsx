@@ -3,7 +3,7 @@ import { GiftIcon, HeartIcon, MountainsIcon, SproutIcon } from '@/components/ui/
 const promises = [
   { Icon: HeartIcon, title: 'Client-Centered', detail: 'You set the pace' },
   { Icon: SproutIcon, title: 'Warm & Inclusive', detail: 'All relationships welcome' },
-  { Icon: MountainsIcon, title: 'Real Support', detail: 'Practical, compassionate guidance' },
+  { Icon: MountainsIcon, title: 'Real Support', detail: 'Practical, caring guidance' },
   { Icon: GiftIcon, title: 'Meaningful Milestones', detail: 'Marking what matters' },
 ];
 
@@ -13,16 +13,16 @@ export default function TrustBar() {
       {promises.map(({ Icon, title, detail }, index) => (
         <li
           key={title}
-          className={`border-blush flex items-center ${index % 2 === 0 ? 'border-r lg:border-r-0' : ''} ${index < 2 ? 'border-b lg:border-b-0' : ''}`}
+          className={`border-blush flex min-w-0 items-center ${index % 2 === 0 ? 'border-r lg:border-r-0' : ''} ${index < 2 ? 'border-b lg:border-b-0' : ''}`}
         >
           {index > 0 && (
             <span aria-hidden="true" className="bg-blush hidden h-[65px] w-px shrink-0 lg:block" />
           )}
-          <div className="flex items-center gap-2.5 px-3 py-4 lg:gap-5 lg:p-2.5">
-            <Icon className="text-terracotta h-7 w-auto shrink-0 lg:h-auto" />
-            <div className="flex flex-col gap-[9px]">
-              <p className="text-body text-ink font-bold">{title}</p>
-              <p className="text-body text-ink">{detail}</p>
+          <div className="flex min-w-0 items-center gap-2 px-2 py-3 lg:gap-5 lg:p-2.5">
+            <Icon className="text-terracotta h-auto w-5 shrink-0 lg:w-10" />
+            <div className="flex min-w-0 flex-col gap-1 lg:gap-[9px]">
+              <p className="text-ink text-[0.8125rem] leading-tight font-bold lg:text-body">{title}</p>
+              <p className="text-ink text-[0.8125rem] leading-tight lg:text-body">{detail}</p>
             </div>
           </div>
         </li>

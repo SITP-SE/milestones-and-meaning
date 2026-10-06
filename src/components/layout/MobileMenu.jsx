@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-export default function MobileMenu({ links }) {
+export default function MobileMenu({ links, onOpenChange }) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    onOpenChange?.(open);
+  }, [open, onOpenChange]);
 
   useEffect(() => {
     if (!open) return undefined;

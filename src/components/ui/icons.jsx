@@ -23,7 +23,7 @@ export function SproutIcon({ className }) {
 
 export function MountainsIcon({ className }) {
   return (
-    <svg {...baseProps} viewBox="0 0 50.147 25.147" width="50" height="25" className={className}>
+    <svg {...baseProps} viewBox="0 0 50.147 25.147" width="40" height="20" className={className}>
       <path d="M 0 25.147 L 10.735 10.735 L 20.331 23.529 L 46.912 23.529 L 31.324 2.794 L 21.544 15.882 L 20.441 14.485 L 31.324 0 L 50.147 25.147 Z M 3.235 23.529 L 18.309 23.529 L 10.735 13.382 Z" />
     </svg>
   );
@@ -53,6 +53,14 @@ export function SprigIcon({ className }) {
         <path d="M30 48c-12-6-12 6-2 10 4-4 6-8 2-10z" />
         <path d="M52 28c8-10 22-6 18 4-8 2-14 0-18-4z" />
       </g>
+    </svg>
+  );
+}
+
+export function MessageIcon({ className }) {
+  return (
+    <svg {...baseProps} viewBox="0 0 20 20" width="20" height="20" className={className}>
+      <path d="M 4 12 L 12 12 L 12 10 L 4 10 Z M 4 9 L 16 9 L 16 7 L 4 7 Z M 4 6 L 16 6 L 16 4 L 4 4 Z M 0 20 L 0 2 C 0 1.45 0.196 0.979 0.588 0.588 C 0.979 0.196 1.45 0 2 0 L 18 0 C 18.55 0 19.021 0.196 19.413 0.588 C 19.804 0.979 20 1.45 20 2 L 20 14 C 20 14.55 19.804 15.021 19.413 15.413 C 19.021 15.804 18.55 16 18 16 L 4 16 Z M 3.15 14 L 18 14 L 18 2 L 2 2 L 2 15.125 Z M 2 14 L 2 2" />
     </svg>
   );
 }

@@ -35,7 +35,7 @@ const offerings = [
     title: 'Funeral & Memorial Services',
     body: 'Thoughtful, personalized services to honor a life.',
     price: '$400',
-    href: '/funeral',
+    href: '/services/funeral',
   },
 ];
 

@@ -16,6 +16,10 @@
   --color-ember: #c4452a;
   --color-copper: #c45435;
   --color-stone: #525252;
+  --color-linen: #cebeaf;
+  --color-ivory: #fdfaf5;
+  --color-apricot: #e7ab89;
+  --color-mist: #a6a6a6;
 
   /* Typefaces */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
