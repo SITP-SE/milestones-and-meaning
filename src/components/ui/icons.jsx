@@ -23,11 +23,7 @@ export function SproutIcon({ className }) {
 
 export function MountainsIcon({ className }) {
   return (
-<<<<<<< HEAD
     <svg {...baseProps} viewBox="0 0 50.147 25.147" width="40" height="20" className={className}>
-=======
-    <svg {...baseProps} viewBox="0 0 50.147 25.147" width="50" height="25" className={className}>
->>>>>>> origin
       <path d="M 0 25.147 L 10.735 10.735 L 20.331 23.529 L 46.912 23.529 L 31.324 2.794 L 21.544 15.882 L 20.441 14.485 L 31.324 0 L 50.147 25.147 Z M 3.235 23.529 L 18.309 23.529 L 10.735 13.382 Z" />
     </svg>
   );
@@ -61,7 +57,6 @@ export function SprigIcon({ className }) {
   );
 }
 
-<<<<<<< HEAD
 export function MessageIcon({ className }) {
   return (
     <svg {...baseProps} viewBox="0 0 20 20" width="20" height="20" className={className}>
@@ -70,8 +65,6 @@ export function MessageIcon({ className }) {
   );
 }
 
-=======
->>>>>>> origin
 export function GiftIcon({ className }) {
   return (
     <svg {...baseProps} viewBox="0 0 40.583 42.799" width="41" height="43" className={className}>
