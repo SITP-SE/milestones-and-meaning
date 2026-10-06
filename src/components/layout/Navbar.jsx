@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use client';
 
 import Image from 'next/image';
@@ -9,11 +10,21 @@ import MobileMenu from './MobileMenu';
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services' },
+=======
+import Image from 'next/image';
+import Link from 'next/link';
+import MobileMenu from './MobileMenu';
+
+const navLinks = [
+  { label: 'Home', href: '/', current: true },
+  { label: 'Services', href: '/#services' },
+>>>>>>> origin
   { label: 'About Us', href: '/#about' },
   { label: 'Resources', href: '/#resources' },
   { label: 'Contact us', href: '/#contact' },
 ];
 
+<<<<<<< HEAD
 function isCurrent(pathname, href) {
   if (href === '/') return pathname === '/';
   if (href.startsWith('/#')) return false;
@@ -62,6 +73,11 @@ export default function Navbar() {
         hidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
+=======
+export default function Navbar() {
+  return (
+    <header className="border-terracotta bg-shell relative w-full border-b">
+>>>>>>> origin
       <nav
         aria-label="Main"
         className="mx-auto flex w-full max-w-[1200px] items-center justify-between px-6 py-3.5 lg:px-[50px] lg:py-2.5"
@@ -81,7 +97,11 @@ export default function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-x-5 lg:flex">
+<<<<<<< HEAD
           {links.map(({ label, href, current }) => (
+=======
+          {navLinks.map(({ label, href, current }) => (
+>>>>>>> origin
             <li key={label}>
               <Link
                 href={href}
@@ -108,7 +128,11 @@ export default function Navbar() {
           <span aria-hidden="true">&rarr;</span>
         </Link>
 
+<<<<<<< HEAD
         <MobileMenu links={links} onOpenChange={setMenuOpen} />
+=======
+        <MobileMenu links={navLinks} />
+>>>>>>> origin
       </nav>
     </header>
   );

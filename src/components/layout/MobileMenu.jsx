@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
+<<<<<<< HEAD
 export default function MobileMenu({ links, onOpenChange }) {
   const [open, setOpen] = useState(false);
 
@@ -11,6 +12,12 @@ export default function MobileMenu({ links, onOpenChange }) {
   }, [open, onOpenChange]);
 
   useEffect(() => {
+=======
+export default function MobileMenu({ links }) {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+>>>>>>> origin
     if (!open) return undefined;
     function onKey(event) {
       if (event.key === 'Escape') setOpen(false);

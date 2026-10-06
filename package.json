@@ -16,12 +16,14 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "firebase:emulators": "firebase emulators:start"
   },
   "dependencies": {
-    "next": "16.3.6",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "firebase": "^12.19.0",
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
@@ -29,9 +31,10 @@
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@types/node": "^24.13.6",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.6",
+    "@types/node": "^26.6.4",
+    "eslint": "^10",
+    "eslint-config-next": "16.3.8",
+    "firebase-tools": "^15.32.1",
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
     "prettier": "3.9.9",
