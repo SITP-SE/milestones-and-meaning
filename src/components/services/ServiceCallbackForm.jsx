@@ -39,7 +39,7 @@ export default function ServiceCallbackForm({ eyebrow, headline, body }) {
               name="name"
               autoComplete="name"
               required
-              className="border-mist bg-paper text-lead text-ink rounded-[10px] border px-4 py-3 font-normal outline-none transition-colors focus:border-terracotta"
+              className="border-mist bg-paper text-lead text-ink focus:border-terracotta rounded-[10px] border px-4 py-3 font-normal transition-colors outline-none"
             />
           </label>
           <label className="text-body text-ink flex flex-col gap-2 font-medium">
@@ -49,7 +49,7 @@ export default function ServiceCallbackForm({ eyebrow, headline, body }) {
               name="phone"
               autoComplete="tel"
               required
-              className="border-mist bg-paper text-lead text-ink rounded-[10px] border px-4 py-3 font-normal outline-none transition-colors focus:border-terracotta"
+              className="border-mist bg-paper text-lead text-ink focus:border-terracotta rounded-[10px] border px-4 py-3 font-normal transition-colors outline-none"
             />
           </label>
           <button
