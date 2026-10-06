@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import MobileMenu from './MobileMenu';
 
 const navLinks = [
@@ -30,9 +30,10 @@ export default function Navbar() {
     current: isCurrent(pathname, link.href),
   }));
 
-  useEffect(() => {
-    if (menuOpen) setHidden(false);
-  }, [menuOpen]);
+  const handleMenuOpenChange = useCallback((open) => {
+    setHidden(false);
+    setMenuOpen(open);
+  }, []);
 
   useEffect(() => {
     lastY.current = window.scrollY;
@@ -58,8 +59,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`border-terracotta bg-shell sticky top-0 z-40 w-full border-b transition-transform duration-300 ease-out motion-reduce:transition-none ${
-        hidden ? '-translate-y-full' : 'translate-y-0'
+      className={`bg-shell sticky top-0 z-40 w-full transition-transform duration-300 ease-out motion-reduce:transition-none ${
+        hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
       <nav
@@ -108,7 +109,7 @@ export default function Navbar() {
           <span aria-hidden="true">&rarr;</span>
         </Link>
 
-        <MobileMenu links={links} onOpenChange={setMenuOpen} />
+        <MobileMenu links={links} open={menuOpen} onOpenChange={handleMenuOpenChange} />
       </nav>
     </header>
   );

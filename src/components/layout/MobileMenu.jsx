@@ -1,23 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-export default function MobileMenu({ links, onOpenChange }) {
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    onOpenChange?.(open);
-  }, [open, onOpenChange]);
-
+export default function MobileMenu({ links, open, onOpenChange }) {
   useEffect(() => {
     if (!open) return undefined;
     function onKey(event) {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') onOpenChange(false);
     }
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [open]);
+  }, [open, onOpenChange]);
 
   return (
     <div className="lg:hidden">
@@ -26,7 +20,7 @@ export default function MobileMenu({ links, onOpenChange }) {
         className="text-brand flex h-11 w-11 items-center justify-center"
         aria-expanded={open}
         aria-controls="mobile-menu"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => onOpenChange(!open)}
       >
         <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
         {open ? <CloseIcon /> : <MenuIcon />}
@@ -43,7 +37,7 @@ export default function MobileMenu({ links, onOpenChange }) {
                 <Link
                   href={href}
                   aria-current={current ? 'page' : undefined}
-                  onClick={() => setOpen(false)}
+                  onClick={() => onOpenChange(false)}
                   className="text-body text-brand block py-2"
                 >
                   {label}
@@ -53,7 +47,7 @@ export default function MobileMenu({ links, onOpenChange }) {
           </ul>
           <Link
             href="/#contact"
-            onClick={() => setOpen(false)}
+            onClick={() => onOpenChange(false)}
             className="bg-terracotta text-body mt-3 inline-flex items-center gap-2.5 rounded-full px-4 py-3 text-white"
           >
             Book a Consultation
