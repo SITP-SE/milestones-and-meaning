@@ -4,13 +4,14 @@ const pages = [
     id: 'funeral',
     content: {
       hero: {
+        hideImageOnMobile: true,
         eyebrow: 'Funeral & Memorial Service',
         headline: 'When you need someone to help you say goodbye',
         lines: [
           'Compassionate guidance for grieving families.',
           'Immediate, personal, and pressure-free support.',
         ],
-        cta: { label: 'Request a Callback', href: '/#contact' },
+        cta: { label: 'Request a Callback', href: '#callback', icon: 'phone' },
         image: {
           src: '/images/funeral-hero.png',
           alt: "A lit pillar candle and baby's breath on linen",
@@ -47,11 +48,15 @@ const pages = [
           'Personalized ceremony planning',
           'Personalized script and officiating',
         ],
-        cta: { label: 'Book a Free Consultation', href: '/#contact' },
         image: {
           src: '/images/funeral-offering.png',
           alt: 'A lit candle and white flowers on linen',
         },
+      },
+      callbackForm: {
+        eyebrow: 'We are here when you are ready',
+        headline: 'Request a callback',
+        body: "Leave your name and phone number, and we'll call you as soon as we can.",
       },
       prompt: {
         title: 'Looking for grief and bereavement support?',
@@ -64,6 +69,7 @@ const pages = [
     id: 'grief-support',
     content: {
       hero: {
+        hideImageOnMobile: true,
         tone: 'cream',
         eyebrow: 'Grief and bereavement support',
         headline: "You don't have to go\nthrough this alone.",
@@ -72,7 +78,7 @@ const pages = [
           'with a listening ear, practical guidance, and space to heal',
           'at your own pace.',
         ],
-        cta: { label: 'Request a Callback', href: '/#contact', icon: false },
+        cta: { label: 'Request a Callback', href: '#callback', icon: 'phone' },
         image: {
           src: '/images/grief-hero.png',
           alt: "One person's hand resting on another's beside a mug",
@@ -126,6 +132,11 @@ const pages = [
             body: 'Videos, reading, and guidance gathered in one place',
           },
         ],
+      },
+      callbackForm: {
+        eyebrow: 'We are here when you are ready',
+        headline: 'Request a callback',
+        body: "Leave your name and phone number, and we'll call you as soon as we can.",
       },
     },
   },

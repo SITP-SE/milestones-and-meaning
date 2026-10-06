@@ -28,7 +28,7 @@ const offerings = [
     title: 'Grief & Bereavement Support',
     body: 'Compassionate support for your unique journey.',
     price: 'Pricing discussed together',
-    href: '/grief-support',
+    href: '/services/grief-support',
   },
   {
     label: 'NAVIGATE',

@@ -101,15 +101,22 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <Link
-          href="/#contact"
-          className="bg-terracotta text-body hidden items-center gap-2.5 rounded-full p-[15px] font-light text-white transition-opacity hover:opacity-90 lg:flex"
-        >
-          Book a Consultation
-          <span aria-hidden="true">&rarr;</span>
-        </Link>
+        {pathname !== '/services/funeral' && (
+          <Link
+            href="/#contact"
+            className="bg-terracotta text-body hidden items-center gap-2.5 rounded-full p-[15px] font-light text-white transition-opacity hover:opacity-90 lg:flex"
+          >
+            Book a Consultation
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        )}
 
-        <MobileMenu links={links} open={menuOpen} onOpenChange={handleMenuOpenChange} />
+        <MobileMenu
+          links={links}
+          open={menuOpen}
+          onOpenChange={handleMenuOpenChange}
+          showBookCta={pathname !== '/services/funeral'}
+        />
       </nav>
     </header>
   );
