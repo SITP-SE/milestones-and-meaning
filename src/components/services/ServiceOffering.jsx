@@ -26,9 +26,11 @@ export default function ServiceOffering({ eyebrow, price, body, includes, cta, i
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <ServiceButton href={cta.href}>
-          {cta.label} <span aria-hidden="true">&rarr;</span>
-        </ServiceButton>
+        {cta && (
+          <ServiceButton href={cta.href}>
+            {cta.label} <span aria-hidden="true">&rarr;</span>
+          </ServiceButton>
+        )}
       </div>
     </div>
   );

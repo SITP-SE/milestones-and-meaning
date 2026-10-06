@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect } from 'react';
 
-export default function MobileMenu({ links, open, onOpenChange }) {
+export default function MobileMenu({ links, open, onOpenChange, showBookCta = true }) {
   useEffect(() => {
     if (!open) return undefined;
     function onKey(event) {
@@ -45,14 +45,16 @@ export default function MobileMenu({ links, open, onOpenChange }) {
               </li>
             ))}
           </ul>
-          <Link
-            href="/#contact"
-            onClick={() => onOpenChange(false)}
-            className="bg-terracotta text-body mt-3 inline-flex items-center gap-2.5 rounded-full px-4 py-3 text-white"
-          >
-            Book a Consultation
-            <span aria-hidden="true">&rarr;</span>
-          </Link>
+          {showBookCta && (
+            <Link
+              href="/#contact"
+              onClick={() => onOpenChange(false)}
+              className="bg-terracotta text-body mt-3 inline-flex items-center gap-2.5 rounded-full px-4 py-3 text-white"
+            >
+              Book a Consultation
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       )}
     </div>

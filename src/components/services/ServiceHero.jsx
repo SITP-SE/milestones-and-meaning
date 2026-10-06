@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MessageIcon } from '@/components/ui/icons';
+import { MessageIcon, PhoneIcon } from '@/components/ui/icons';
 import ServiceButton from './ServiceButton';
 
 const backgrounds = {
@@ -7,7 +7,15 @@ const backgrounds = {
   cream: 'bg-cream',
 };
 
-export default function ServiceHero({ eyebrow, headline, lines, cta, image, tone = 'linen' }) {
+export default function ServiceHero({
+  eyebrow,
+  headline,
+  lines,
+  cta,
+  image,
+  tone = 'linen',
+  hideImageOnMobile = false,
+}) {
   return (
     <section className={backgrounds[tone] ?? 'bg-linen'}>
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-10 px-6 py-16 lg:flex-row lg:items-center lg:gap-[50px] lg:px-[50px] lg:pt-[100px] lg:pb-[50px]">
@@ -28,11 +36,16 @@ export default function ServiceHero({ eyebrow, headline, lines, cta, image, tone
             </div>
           </div>
           <ServiceButton href={cta.href}>
-            {cta.icon !== false && <MessageIcon className="size-5" />}
+            {cta.icon === 'phone' && <PhoneIcon className="size-5" />}
+            {cta.icon !== false && cta.icon !== 'phone' && <MessageIcon className="size-5" />}
             {cta.label}
           </ServiceButton>
         </div>
-        <div className="relative aspect-square w-full max-w-[400px] overflow-hidden rounded-[10px]">
+        <div
+          className={`relative aspect-square w-full max-w-[400px] overflow-hidden rounded-[10px] ${
+            hideImageOnMobile ? 'hidden lg:block' : ''
+          }`}
+        >
           <Image
             src={image.src}
             alt={image.alt}

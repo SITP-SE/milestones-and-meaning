@@ -65,6 +65,29 @@ export function MessageIcon({ className }) {
   );
 }
 
+export function PhoneIcon({ className }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path
+        d="M7.1 3.5 9.5 8l-2.2 2.2a15.5 15.5 0 0 0 6.5 6.5l2.2-2.2 4.5 2.4v3.6c0 .8-.7 1.5-1.5 1.5C9.6 22 2 14.4 2 5c0-.8.7-1.5 1.5-1.5h3.6Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function GiftIcon({ className }) {
   return (
     <svg {...baseProps} viewBox="0 0 40.583 42.799" width="41" height="43" className={className}>

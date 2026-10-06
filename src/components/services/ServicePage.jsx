@@ -1,3 +1,4 @@
+import ServiceCallbackForm from './ServiceCallbackForm';
 import ServiceExplain from './ServiceExplain';
 import ServiceHero from './ServiceHero';
 import ServiceOffering from './ServiceOffering';
@@ -18,6 +19,7 @@ export default function ServicePage({ content }) {
     content.explain ||
     content.reasons ||
     content.resources ||
+    content.callbackForm ||
     (content.prompt && !promptFirst);
   const tone = content.hero?.tone === 'cream' ? 'bg-cream' : 'bg-linen';
 
@@ -44,6 +46,7 @@ export default function ServicePage({ content }) {
             {content.steps?.length > 0 && <ServiceSteps steps={content.steps} />}
             {content.offering && <ServiceOffering {...content.offering} />}
             {content.reasons && <ServiceReasons {...content.reasons} />}
+            {content.callbackForm && <ServiceCallbackForm {...content.callbackForm} />}
             {content.resources && <ServiceResources {...content.resources} />}
             {content.prompt && !promptFirst && <Prompt prompt={content.prompt} />}
           </div>
