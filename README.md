@@ -65,6 +65,67 @@ Password: User123!
 
 These accounts exist only in the local Firebase emulator and must not be used in production.
 
+### Production Page Bootstrap
+
+Local page content is seeded from:
+
+`./scripts/seed-data/pages.js`
+
+To populate the initial production Firestore `pages` collection, use:
+
+`./scripts/migrations/populate-production-pages.mjs`
+
+Create a temporary `.env.production-migration.local` file:
+
+```env
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=milestones-and-meaning
+FIREBASE_ADMIN_CLIENT_EMAIL=your-service-account@milestones-and-meaning.iam.gserviceaccount.com
+FIREBASE_ADMIN_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----END PRIVATE KEY-----\n"
+```
+
+Do not include Firebase emulator variables in this file.
+
+Run a dry run first:
+
+```bash
+node --env-file=.env.production-migration.local scripts/migrations/populate-production-pages.mjs
+```
+
+A successful dry run should end with:
+
+```text
+[DRY RUN] Would populate pages/grief-support
+[DRY RUN] Would populate pages/funeral
+...
+Dry run complete. No production data was changed.
+Run again with --write when you are ready.
+```
+
+Node may also display a `MODULE_TYPELESS_PACKAGE_JSON` warning before this output because the seed data file uses ES module syntax. This warning does not mean the migration failed.
+
+If the dry-run output is correct, run the migration:
+
+```bash
+node --env-file=.env.production-migration.local scripts/migrations/populate-production-pages.mjs --write
+```
+
+A successful production migration should end with:
+
+```text
+Populated pages/grief-support
+Populated pages/funeral
+...
+Production page migration complete.
+```
+
+After verifying the documents in Firestore, delete the temporary environment file:
+
+```bash
+rm .env.production-migration.local
+```
+
+> This script is intended only to bootstrap the initial production page data. It is not a development-to-production sync tool. Future production data changes should use their own migration when needed.
+
 ## Commands
 
 | Command                            | Description                                      |
