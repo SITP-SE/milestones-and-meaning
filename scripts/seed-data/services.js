@@ -1,5 +1,5 @@
 export const services = {
-  'complete_marriage_package': {
+  complete_marriage_package: {
     order: 0,
     label: 'SIGNATURE OFFERING',
     name: 'Complete Marriage Package',
@@ -14,7 +14,7 @@ export const services = {
       alt: 'An open journal, wedding rings, and a pencil on linen',
     },
   },
-  'strong_start': {
+  strong_start: {
     order: 1,
     label: 'PREPARE',
     name: 'The Strong Start Program',
@@ -25,7 +25,7 @@ export const services = {
     isGiftable: true,
     requiresDeposit: true,
   },
-  'wedding_officiation': {
+  wedding_officiation: {
     order: 2,
     label: 'CELEBRATE',
     name: 'Wedding Officiation',
@@ -36,7 +36,7 @@ export const services = {
     isGiftable: true,
     requiresDeposit: true,
   },
-  'relationship_check_in': {
+  relationship_check_in: {
     order: 3,
     label: 'STRENGTHEN',
     name: 'Relationship Check-In',
@@ -47,7 +47,7 @@ export const services = {
     isGiftable: false,
     requiresDeposit: false,
   },
-  'grief_support': {
+  grief_support: {
     order: 4,
     label: 'NAVIGATE',
     name: 'Grief & Bereavement Support',
@@ -58,7 +58,7 @@ export const services = {
     isGiftable: false,
     requiresDeposit: false,
   },
-  'funeral_memorial_officiation': {
+  funeral_memorial_officiation: {
     order: 5,
     label: 'NAVIGATE',
     name: 'Funeral & Memorial Services',
