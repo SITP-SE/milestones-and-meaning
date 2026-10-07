@@ -3,9 +3,14 @@ import { notFound } from 'next/navigation';
 import ServicePage from '@/components/services/ServicePage';
 import { getPage } from '@/server/pages/get-page';
 
-// Service content comes from Firestore at request time.
-// This also prevents the build process from requiring database access.
-export const dynamic = 'force-dynamic';
+// Cache the rendered page for an hour. Paths are generated on first
+// request so `next build` does not need Firestore.
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+export function generateStaticParams() {
+  return [];
+}
 
 export async function generateMetadata({ params }) {
   const { serviceId } = await params;

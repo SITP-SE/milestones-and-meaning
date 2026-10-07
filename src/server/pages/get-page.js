@@ -1,6 +1,8 @@
+import { cache } from 'react';
+
 import { adminDb } from '@/server/firebase/admin';
 
-export async function getPage(pageId) {
+export const getPage = cache(async (pageId) => {
   if (!pageId || !/^[a-z0-9-]+$/.test(pageId)) {
     return null;
   }
@@ -15,4 +17,4 @@ export async function getPage(pageId) {
     id: snapshot.id,
     ...snapshot.data(),
   };
-}
+});
