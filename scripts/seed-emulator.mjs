@@ -1,10 +1,14 @@
 import { getApps, initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
+import { getFirestore } from 'firebase-admin/firestore';
 
-// This script must only ever talk to the local Firebase emulator.
-// Setting the host here prevents accidentally creating development
-// users in the real Firebase Authentication project.
+import { pages } from './seed-data/pages.js';
+
+// This script must only ever talk to the local Firebase emulators.
+// Setting the hosts here prevents development data from accidentally
+// being written to the real Firebase project.
 process.env.FIREBASE_AUTH_EMULATOR_HOST = '127.0.0.1:9099';
+process.env.FIRESTORE_EMULATOR_HOST = '127.0.0.1:8080';
 
 const PROJECT_ID = 'milestones-and-meaning';
 
@@ -33,6 +37,7 @@ const app =
       });
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 async function getOrCreateUser({ email, password }) {
   try {
@@ -64,6 +69,17 @@ async function seedAuth() {
   }
 }
 
+async function seedPages() {
+  for (const [pageId, pageData] of Object.entries(pages)) {
+    // The Firestore document ID acts as the page ID, so it does not need
+    // to be duplicated inside the document itself.
+    await db.collection('pages').doc(pageId).set(pageData);
+
+    console.log(`Seeded pages/${pageId}`);
+  }
+}
+
 await seedAuth();
+await seedPages();
 
 console.log('Firebase emulator seed complete.');
