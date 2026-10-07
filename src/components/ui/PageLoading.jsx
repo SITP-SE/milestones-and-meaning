@@ -1,3 +1,4 @@
+
 import { Bone } from './Skeleton';
 
 export default function PageLoading() {
