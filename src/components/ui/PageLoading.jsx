@@ -1,6 +1,4 @@
-function Bone({ className }) {
-  return <div className={`skeleton-shimmer rounded ${className}`} />;
-}
+import { Bone } from './Skeleton';
 
 export default function PageLoading() {
   return (

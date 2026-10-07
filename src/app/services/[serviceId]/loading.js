@@ -1,5 +1,5 @@
 import PageLoading from '@/components/ui/PageLoading';
 
-export default function Loading() {
+export default function ServicePageLoading() {
   return <PageLoading />;
 }
