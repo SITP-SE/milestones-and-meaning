@@ -55,3 +55,35 @@
     line-height: 1.2;
   }
 }
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@layer utilities {
+  .skeleton-shimmer {
+    background-color: var(--color-sand);
+    background-image: linear-gradient(
+      90deg,
+      var(--color-sand) 0%,
+      var(--color-paper) 45%,
+      var(--color-cream) 50%,
+      var(--color-paper) 55%,
+      var(--color-sand) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-shimmer {
+      animation: none;
+    }
+  }
+}
