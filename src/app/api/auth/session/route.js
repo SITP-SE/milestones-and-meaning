@@ -12,6 +12,12 @@ const SESSION_DURATION_MS = 5 * 24 * 60 * 60 * 1000;
 const RECENT_SIGN_IN_SECONDS = 5 * 60;
 
 export async function POST(request) {
+  const origin = request.headers?.get?.('origin');
+
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
   try {
     const { idToken } = await request.json();
 

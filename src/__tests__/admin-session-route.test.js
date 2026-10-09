@@ -109,4 +109,21 @@ describe('admin session API', () => {
     expect(cookie?.value).toBe('');
     expect(cookie?.maxAge).toBe(0);
   });
+  test('rejects login requests from another website', async () => {
+    const request = new Request('http://localhost:3000/api/auth/session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Origin: 'https://attacker.example',
+      },
+      body: JSON.stringify({
+        idToken: 'fake-token',
+      }),
+    });
+
+    const response = await POST(request);
+
+    expect(response.status).toBe(403);
+    expect(adminAuth.verifyIdToken).not.toHaveBeenCalled();
+  });
 });
