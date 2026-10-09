@@ -1,34 +1,6 @@
-import { Fasthand, Inter, Roboto } from 'next/font/google';
-import localFont from 'next/font/local';
 import Navbar from '@/components/layout/Navbar';
+import { fasthand, inter, libertinusSerif, roboto } from './fonts';
 import './globals.css';
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const roboto = Roboto({
-  variable: '--font-roboto',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const libertinusSerif = localFont({
-  src: './fonts/libertinus-serif-latin.woff2',
-  variable: '--font-libertinus',
-  weight: '400',
-  display: 'swap',
-  adjustFontFallback: 'Times New Roman',
-});
-
-const fasthand = Fasthand({
-  variable: '--font-fasthand',
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
-});
 
 export const metadata = {
   title: 'Milestones & Meaning',

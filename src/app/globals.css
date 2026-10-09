@@ -86,4 +86,8 @@
       animation: none;
     }
   }
+
+  .font-script {
+    font-family: var(--font-fasthand), cursive;
+  }
 }
