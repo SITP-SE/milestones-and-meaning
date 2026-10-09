@@ -126,4 +126,16 @@ describe('admin session API', () => {
     expect(response.status).toBe(403);
     expect(adminAuth.verifyIdToken).not.toHaveBeenCalled();
   });
+  test('rejects logout requests from another website', async () => {
+    const request = new Request('http://localhost:3000/api/auth/session', {
+      method: 'DELETE',
+      headers: {
+        Origin: 'https://attacker.example',
+      },
+    });
+
+    const response = await DELETE(request);
+
+    expect(response.status).toBe(403);
+  });
 });

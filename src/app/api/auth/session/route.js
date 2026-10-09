@@ -74,9 +74,14 @@ export async function POST(request) {
   }
 }
 
-export async function DELETE() {
-  const response = NextResponse.json({ success: true });
+export async function DELETE(request) {
+  const origin = request?.headers?.get?.('origin');
 
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  const response = NextResponse.json({ success: true });
   // Logging out means removing the server-managed session cookie.
   // The browser-side Firebase user was already signed out after login,
   // so this cookie is what actually controls access to the admin area.
