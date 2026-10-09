@@ -3,6 +3,7 @@ import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 
 import { pages } from './seed-data/pages.js';
+import { services } from './seed-data/services.js';
 
 // This script must only ever talk to the local Firebase emulators.
 // Setting the hosts here prevents development data from accidentally
@@ -79,7 +80,16 @@ async function seedPages() {
   }
 }
 
+async function seedServices() {
+  for (const [serviceId, serviceData] of Object.entries(services)) {
+    await db.collection('services').doc(serviceId).set(serviceData);
+
+    console.log(`Seeded services/${serviceId}`);
+  }
+}
+
 await seedAuth();
 await seedPages();
+await seedServices();
 
 console.log('Firebase emulator seed complete.');

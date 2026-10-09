@@ -1,7 +1,10 @@
+import { Suspense } from 'react';
+
 import About from '@/components/home/sections/About';
 import Hero from '@/components/home/sections/Hero';
 import Journey from '@/components/home/sections/Journey';
-import Services from '@/components/home/sections/Services';
+import ServicesLoading from '@/components/home/sections/ServicesLoading';
+import ServicesSection from '@/components/home/sections/ServicesSection';
 
 export default function Home() {
   return (
@@ -9,7 +12,9 @@ export default function Home() {
       <Hero />
       <Journey />
       <About />
-      <Services />
+      <Suspense fallback={<ServicesLoading />}>
+        <ServicesSection />
+      </Suspense>
     </>
   );
 }

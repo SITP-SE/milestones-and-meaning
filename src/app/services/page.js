@@ -1,4 +1,7 @@
-import Services from '@/components/home/sections/Services';
+import { Suspense } from 'react';
+
+import ServicesLoading from '@/components/home/sections/ServicesLoading';
+import ServicesSection from '@/components/home/sections/ServicesSection';
 
 export const metadata = {
   title: 'Our Services | Milestones & Meaning',
@@ -7,5 +10,9 @@ export const metadata = {
 };
 
 export default function ServicesIndexPage() {
-  return <Services />;
+  return (
+    <Suspense fallback={<ServicesLoading />}>
+      <ServicesSection />
+    </Suspense>
+  );
 }
