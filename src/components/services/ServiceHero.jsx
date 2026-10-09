@@ -44,7 +44,7 @@ export default function ServiceHero({
           {(price || deposit) && (
             <p className="flex items-baseline gap-3">
               {price && (
-                <span className="font-wordmark text-brand text-[clamp(1.75rem,4vw,2.25rem)] font-bold leading-none">
+                <span className="font-wordmark text-brand text-[clamp(1.75rem,4vw,2.25rem)] leading-none font-bold">
                   {price}
                 </span>
               )}
