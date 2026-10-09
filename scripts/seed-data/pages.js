@@ -1,4 +1,63 @@
 export const pages = {
+  'wedding-officiation': {
+    content: {
+      hero: {
+        hideImageOnMobile: true,
+        tone: 'cream',
+        eyebrow: 'Wedding Officiation',
+        headline: 'A ceremony that\nfeels unmistakably\nyours.',
+        lines: ['Personalized wedding officiation with meaning, warmth, and every detail handled.'],
+        price: '$595',
+        deposit: '$250 deposit',
+        cta: {
+          label: 'Book a Consultation',
+          href: '/#contact',
+          icon: false,
+          pill: true,
+        },
+        image: {
+          src: '/images/service-marriage.png',
+          alt: 'An open journal, wedding rings, and a pencil on linen',
+        },
+      },
+      invite: {
+        eyebrow: 'Officiating your day',
+        headline: "Let's write your ceremony together",
+        paragraphs: [
+          "Your wedding day is a celebration of your love, your journey, and the life you're choosing to build together. Your ceremony should reflect all of that — not just the moment you exchange vows, but the little things that make your relationship uniquely yours.",
+          "As your wedding officiant, I'll work with you to create a personalized ceremony that feels genuine, meaningful, and true to your story. We'll take the time to get to know you as a couple, learn what matters most to you, and weave your personalities, values, and shared experiences into a ceremony that feels natural and heartfelt. From choosing the right words and writing your vows to incorporating cultural traditions, meaningful readings, or a touch of humour, every detail can be shaped around what feels right for you.",
+          "Whether you're dreaming of an intimate gathering with your closest loved ones, a relaxed outdoor celebration, or a larger wedding surrounded by family and friends, the goal is the same: to create a moment where you can slow down, be present with one another, and celebrate the commitment you're making.",
+          "You don't need to have every detail figured out before we begin. I'll guide you through the process, answer your questions, and help make planning your ceremony feel less overwhelming and more enjoyable. Together, we'll create a celebration that honours your relationship, welcomes the people who matter most, and gives you a beautiful beginning to look back on for years to come.",
+        ],
+      },
+      features: [
+        {
+          title: 'Personalized Ceremony',
+          body: 'Written around your love story and values.',
+        },
+        {
+          title: 'Planning Consultation',
+          body: 'A deep-dive conversation to shape your ceremony.',
+        },
+        {
+          title: 'Rehearsal Guidance',
+          body: 'Clear direction so your day flows smoothly',
+        },
+        {
+          title: 'Legal Paperwork',
+          body: 'We prepare and file all required documents.',
+        },
+      ],
+      prompt: {
+        title: 'Explore the Complete Marriage Package',
+        body: 'Relationship guidance, officiation, paperwork - one clear path from start to finish.',
+        cta: {
+          label: "See what's included",
+          href: '/marriage-package',
+        },
+      },
+    },
+  },
   'grief-support': {
     content: {
       hero: {
@@ -120,10 +179,11 @@ export const pages = {
 
       explain: {
         eyebrow: 'Honouring a life',
-        headline: 'What is a personalized memorial service?',
+        headline: 'A farewell that reflects a life well lived',
         paragraphs: [
-          'A personalized memorial service creates space for family and friends to remember, reflect, and say goodbye in a way that feels true to the person who died. Rather than following a fixed script, the ceremony is shaped around their story, values, relationships, and the moments people will carry with them.',
-          'You do not need to know how the ceremony should look or find all the right words on your own. We begin with a gentle conversation, listen to what mattered most, and guide you through each decision with care. Together, we create a meaningful service that honours their life and gives those gathered a place to share love, memory, and loss.',
+          'Saying goodbye to someone you love is never easy. A meaningful service can offer a moment to pause, come together, share memories, and honour the life of someone who will always matter. It creates space for grief, gratitude, laughter, and reflection — allowing family and friends to remember not only that a life has ended, but all the ways that life touched their own.',
+          'Every person has a story worth remembering. Through a thoughtful, personalized ceremony, we bring that story to life by reflecting their values, relationships, cherished memories, and the little things that made them who they were. Whether you wish to honour a life through shared stories, meaningful readings, cultural traditions, or quiet moments of reflection, the service is shaped around what feels most true to them and those who loved them.',
+          "You don't have to know where to begin or find all the right words on your own. We'll start with a gentle conversation, listen to what matters most to you, and guide you through the decisions ahead with patience and care. Together, we'll create a heartfelt farewell that honours their memory and offers those gathered a meaningful way to remember, reflect, and begin navigating the days ahead.",
         ],
       },
 
