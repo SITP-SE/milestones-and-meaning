@@ -222,4 +222,23 @@ describe('admin session API', () => {
 
     expect(response.status).toBe(403);
   });
+  test.each([
+    ['non-JSON requests', 'hello', 'text/plain', 415],
+    ['malformed JSON', '{invalid', 'application/json', 400],
+    ['oversized requests', JSON.stringify({ idToken: 'x'.repeat(20000) }), 'application/json', 413],
+  ])('rejects %s', async (name, body, contentType, expectedStatus) => {
+    const request = new Request('http://localhost:3000/api/auth/session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': contentType,
+        Origin: 'http://localhost:3000',
+      },
+      body,
+    });
+
+    const response = await POST(request);
+
+    expect(response.status).toBe(expectedStatus);
+    expect(adminAuth.verifyIdToken).not.toHaveBeenCalled();
+  });
 });

@@ -24,9 +24,57 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
   }
 
-  try {
-    const { idToken } = await request.json();
+  // Only accept JSON requests.
+  const contentType = request.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
 
+  if (contentType !== 'application/json') {
+    return NextResponse.json({ error: 'JSON required.' }, { status: 415 });
+  }
+
+  // Limit request bodies to 8 KB.
+  const MAX_BODY_BYTES = 8192;
+  let body = '';
+  let totalBytes = 0;
+
+  try {
+    const reader = request.body?.getReader();
+
+    if (!reader) {
+      return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+    }
+
+    const decoder = new TextDecoder('utf-8', { fatal: true });
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      totalBytes += value.byteLength;
+
+      if (totalBytes > MAX_BODY_BYTES) {
+        await reader.cancel();
+        return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
+      }
+
+      body += decoder.decode(value, { stream: true });
+    }
+
+    body += decoder.decode();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+  }
+
+  // Reject malformed JSON before contacting Firebase.
+  let idToken;
+
+  try {
+    ({ idToken } = JSON.parse(body));
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON.' }, { status: 400 });
+  }
+
+  try {
     // Never pass unvalidated request data directly to Firebase Admin.
     if (!idToken || typeof idToken !== 'string') {
       return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
@@ -92,10 +140,7 @@ export async function DELETE(request) {
 
   // Block requests originating from other websites.
   if (fetchSite === 'cross-site') {
-    return NextResponse.json(
-      { error: 'Forbidden.' },
-      { status: 403 },
-    );
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
   }
 
   if (origin && origin !== new URL(request.url).origin) {
