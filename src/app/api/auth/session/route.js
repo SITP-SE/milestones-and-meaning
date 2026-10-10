@@ -12,9 +12,69 @@ const SESSION_DURATION_MS = 5 * 24 * 60 * 60 * 1000;
 const RECENT_SIGN_IN_SECONDS = 5 * 60;
 
 export async function POST(request) {
-  try {
-    const { idToken } = await request.json();
+  const origin = request.headers?.get?.('origin');
+  const fetchSite = request.headers?.get?.('sec-fetch-site');
 
+  // Block cross-site or unverified requests.
+  if (fetchSite === 'cross-site' || (!origin && fetchSite !== 'same-origin')) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  // Only accept JSON requests.
+  const contentType = request.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
+
+  if (contentType !== 'application/json') {
+    return NextResponse.json({ error: 'JSON required.' }, { status: 415 });
+  }
+
+  // Limit request bodies to 8 KB.
+  const MAX_BODY_BYTES = 8192;
+  let body = '';
+  let totalBytes = 0;
+
+  try {
+    const reader = request.body?.getReader();
+
+    if (!reader) {
+      return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+    }
+
+    const decoder = new TextDecoder('utf-8', { fatal: true });
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      totalBytes += value.byteLength;
+
+      if (totalBytes > MAX_BODY_BYTES) {
+        await reader.cancel();
+        return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
+      }
+
+      body += decoder.decode(value, { stream: true });
+    }
+
+    body += decoder.decode();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+  }
+
+  // Reject malformed JSON before contacting Firebase.
+  let idToken;
+
+  try {
+    ({ idToken } = JSON.parse(body));
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON.' }, { status: 400 });
+  }
+
+  try {
     // Never pass unvalidated request data directly to Firebase Admin.
     if (!idToken || typeof idToken !== 'string') {
       return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
@@ -68,9 +128,26 @@ export async function POST(request) {
   }
 }
 
-export async function DELETE() {
-  const response = NextResponse.json({ success: true });
+export async function DELETE(request) {
+  const origin = request?.headers?.get?.('origin');
 
+  const fetchSite = request?.headers?.get?.('sec-fetch-site');
+
+  // Require a trusted origin or an explicitly same-origin request.
+  if (!origin && fetchSite !== 'same-origin') {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  // Block requests originating from other websites.
+  if (fetchSite === 'cross-site') {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  const response = NextResponse.json({ success: true });
   // Logging out means removing the server-managed session cookie.
   // The browser-side Firebase user was already signed out after login,
   // so this cookie is what actually controls access to the admin area.
