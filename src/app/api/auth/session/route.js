@@ -13,6 +13,12 @@ const RECENT_SIGN_IN_SECONDS = 5 * 60;
 
 export async function POST(request) {
   const origin = request.headers?.get?.('origin');
+  const fetchSite = request.headers?.get?.('sec-fetch-site');
+
+  // Block cross-site or unverified requests.
+  if (fetchSite === 'cross-site' || (!origin && fetchSite !== 'same-origin')) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
 
   if (origin && origin !== new URL(request.url).origin) {
     return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
@@ -76,6 +82,21 @@ export async function POST(request) {
 
 export async function DELETE(request) {
   const origin = request?.headers?.get?.('origin');
+
+  const fetchSite = request?.headers?.get?.('sec-fetch-site');
+
+  // Require a trusted origin or an explicitly same-origin request.
+  if (!origin && fetchSite !== 'same-origin') {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  // Block requests originating from other websites.
+  if (fetchSite === 'cross-site') {
+    return NextResponse.json(
+      { error: 'Forbidden.' },
+      { status: 403 },
+    );
+  }
 
   if (origin && origin !== new URL(request.url).origin) {
     return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
