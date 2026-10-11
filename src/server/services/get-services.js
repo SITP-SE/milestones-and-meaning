@@ -44,4 +44,5 @@ export async function readServices() {
 // The cache expires after one hour.
 export const getServices = unstable_cache(readServices, ['services'], {
   revalidate: 3600,
+  tags: ['services'],
 });
