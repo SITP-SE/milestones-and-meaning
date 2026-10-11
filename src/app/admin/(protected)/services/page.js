@@ -1,6 +1,5 @@
+import ServicesTable from '@/components/admin/services/ServicesTable';
 import { getAdminServices } from '@/server/services/get-admin-services';
-
-import ServicesTable from './services-table';
 
 // Server Component: retrieve fresh services after verifying
 // the administrator's session.

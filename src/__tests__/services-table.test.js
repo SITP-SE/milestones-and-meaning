@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import ServicesTable from '@/app/admin/(protected)/services/services-table';
+import ServicesTable from '@/components/admin/services/ServicesTable';
 
 // The UI tests should not perform real database writes.
 jest.mock('@/app/admin/(protected)/services/actions', () => ({

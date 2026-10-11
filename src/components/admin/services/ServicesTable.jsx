@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useState } from 'react';
 
-import { saveServiceAction } from './actions';
+import { saveServiceAction } from '@/app/admin/(protected)/services/actions';
 
 // Keep pricing consistent with the existing admin listing.
 // Firestore stores prices as integer cents.
