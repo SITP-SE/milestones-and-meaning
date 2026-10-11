@@ -49,7 +49,7 @@ describe('ServicesTable', () => {
       'Wedding Officiation',
     );
 
-    expect(screen.getByRole('textbox', { name: 'Price (USD)' })).toHaveValue('595.00');
+    expect(screen.getByRole('textbox', { name: 'Price (CAD)' })).toHaveValue('595.00');
 
     expect(screen.getByRole('checkbox', { name: 'Requires $250 deposit' })).toBeChecked();
 

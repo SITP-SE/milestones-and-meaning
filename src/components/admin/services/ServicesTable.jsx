@@ -11,9 +11,9 @@ function formatPrice(priceCents) {
     return 'Pricing discussed together';
   }
 
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-CA', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'CAD',
   }).format(priceCents / 100);
 }
 
@@ -66,7 +66,7 @@ function EditServiceRow({ service, onCancel, onSaved }) {
 
             <div>
               <label htmlFor={`price-${service.id}`} className="block font-medium">
-                Price (USD)
+                Price (CAD)
               </label>
               <input
                 id={`price-${service.id}`}
