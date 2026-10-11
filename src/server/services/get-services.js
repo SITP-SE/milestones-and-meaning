@@ -12,21 +12,6 @@ function compareServices(a, b) {
   return String(a.title ?? a.name ?? '').localeCompare(String(b.title ?? b.name ?? ''));
 }
 
-// export const getServices = unstable_cache(
-//   async () => {
-//     const snapshot = await adminDb.collection('services').get();
-//
-//     return snapshot.docs
-//       .map((doc) => ({
-//         id: doc.id,
-//         ...doc.data(),
-//       }))
-//       .sort(compareServices);
-//   },
-//   ['services'],
-//   { revalidate: 3600 },
-// );
-
 // Read directly from Firestore without caching.
 // Admin operations use this function so changes appear immediately.
 export async function readServices() {

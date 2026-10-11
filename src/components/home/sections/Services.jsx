@@ -10,7 +10,7 @@ function formatPrice(priceCents) {
     style: 'currency',
     currency: 'CAD',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(priceCents / 100);
 }
 
