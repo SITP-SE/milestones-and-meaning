@@ -6,11 +6,11 @@ function formatPrice(priceCents) {
     return 'Pricing discussed together';
   }
 
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-CA', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'CAD',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    maximumFractionDigits: 2,
   }).format(priceCents / 100);
 }
 
