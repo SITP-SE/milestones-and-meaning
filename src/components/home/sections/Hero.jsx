@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { fasthand } from '@/app/fonts';
 import { SprigIcon } from '@/components/ui/icons';
 import TrustBar from './TrustBar';
 
@@ -26,7 +27,7 @@ export default function Hero() {
             ))}
           </div>
 
-          <p className="font-script text-script text-brand -rotate-2">
+          <p className={`${fasthand.className} text-script text-brand -rotate-2`}>
             We&apos;re here for what comes next
           </p>
 
