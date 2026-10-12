@@ -11,7 +11,7 @@ export default function About() {
       <div className="mx-auto w-full max-w-[1200px]">
         <div className="text-brand mb-8 flex w-full items-center justify-center gap-4 lg:hidden">
           <span aria-hidden="true" className="bg-brand/60 h-px flex-1" />
-          <p className="text-body shrink-0 tracking-wide sm:text-eyebrow">ABOUT GABI</p>
+          <p className="text-body sm:text-eyebrow shrink-0 tracking-wide">ABOUT GABI</p>
           <span aria-hidden="true" className="bg-brand/60 h-px flex-1" />
         </div>
 
@@ -27,11 +27,11 @@ export default function About() {
               <span aria-hidden="true" className="bg-brand/60 h-px min-w-16 flex-1" />
             </div>
 
-            <h2 className="font-heading text-ink mt-5 text-[1.5rem] leading-tight sm:text-h2">
+            <h2 className="font-heading text-ink sm:text-h2 mt-5 text-[1.5rem] leading-tight">
               Hi, I&apos;m Gabi.
             </h2>
 
-            <div className="text-body text-ink mt-6 flex flex-col gap-4 sm:text-lead">
+            <div className="text-body text-ink sm:text-lead mt-6 flex flex-col gap-4">
               <p>
                 I help couples create strong foundations, celebrate what matters, and navigate
                 life&apos;s transitions with clarity and care. My approach is warm, practical, and

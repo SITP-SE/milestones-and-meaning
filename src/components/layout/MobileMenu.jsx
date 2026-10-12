@@ -1,19 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-export default function MobileMenu({ links }) {
-  const [open, setOpen] = useState(false);
-
+export default function MobileMenu({ links, open, onOpenChange, showBookCta = true }) {
   useEffect(() => {
     if (!open) return undefined;
     function onKey(event) {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') onOpenChange(false);
     }
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [open]);
+  }, [open, onOpenChange]);
 
   return (
     <div className="lg:hidden">
@@ -22,7 +20,7 @@ export default function MobileMenu({ links }) {
         className="text-brand flex h-11 w-11 items-center justify-center"
         aria-expanded={open}
         aria-controls="mobile-menu"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => onOpenChange(!open)}
       >
         <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
         {open ? <CloseIcon /> : <MenuIcon />}
@@ -39,7 +37,7 @@ export default function MobileMenu({ links }) {
                 <Link
                   href={href}
                   aria-current={current ? 'page' : undefined}
-                  onClick={() => setOpen(false)}
+                  onClick={() => onOpenChange(false)}
                   className="text-body text-brand block py-2"
                 >
                   {label}
@@ -47,14 +45,16 @@ export default function MobileMenu({ links }) {
               </li>
             ))}
           </ul>
-          <Link
-            href="/#contact"
-            onClick={() => setOpen(false)}
-            className="bg-terracotta text-body mt-3 inline-flex items-center gap-2.5 rounded-full px-4 py-3 text-white"
-          >
-            Book a Consultation
-            <span aria-hidden="true">&rarr;</span>
-          </Link>
+          {showBookCta && (
+            <Link
+              href="/#contact"
+              onClick={() => onOpenChange(false)}
+              className="bg-terracotta text-body mt-3 inline-flex items-center gap-2.5 rounded-full px-4 py-3 text-white"
+            >
+              Book a Consultation
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       )}
     </div>

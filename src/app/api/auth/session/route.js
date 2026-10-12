@@ -1,0 +1,163 @@
+import { NextResponse } from 'next/server';
+
+import { SESSION_COOKIE_NAME } from '@/server/auth/session';
+import { adminAuth } from '@/server/firebase/admin';
+
+// Admin sessions last for five days before requiring another login.
+const SESSION_DURATION_MS = 5 * 24 * 60 * 60 * 1000;
+
+// Only accept tokens from a recent login.
+// This reduces the chance of an old/stolen ID token being exchanged
+// for a new long-lived session cookie.
+const RECENT_SIGN_IN_SECONDS = 5 * 60;
+
+export async function POST(request) {
+  const origin = request.headers?.get?.('origin');
+  const fetchSite = request.headers?.get?.('sec-fetch-site');
+
+  // Block cross-site or unverified requests.
+  if (fetchSite === 'cross-site' || (!origin && fetchSite !== 'same-origin')) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  // Only accept JSON requests.
+  const contentType = request.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
+
+  if (contentType !== 'application/json') {
+    return NextResponse.json({ error: 'JSON required.' }, { status: 415 });
+  }
+
+  // Limit request bodies to 8 KB.
+  const MAX_BODY_BYTES = 8192;
+  let body = '';
+  let totalBytes = 0;
+
+  try {
+    const reader = request.body?.getReader();
+
+    if (!reader) {
+      return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+    }
+
+    const decoder = new TextDecoder('utf-8', { fatal: true });
+
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) break;
+
+      totalBytes += value.byteLength;
+
+      if (totalBytes > MAX_BODY_BYTES) {
+        await reader.cancel();
+        return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
+      }
+
+      body += decoder.decode(value, { stream: true });
+    }
+
+    body += decoder.decode();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+  }
+
+  // Reject malformed JSON before contacting Firebase.
+  let idToken;
+
+  try {
+    ({ idToken } = JSON.parse(body));
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON.' }, { status: 400 });
+  }
+
+  try {
+    // Never pass unvalidated request data directly to Firebase Admin.
+    if (!idToken || typeof idToken !== 'string') {
+      return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+    }
+
+    // Verify that Firebase actually issued this ID token.
+    // Client-side authentication alone is not trusted for admin access.
+    const decodedToken = await adminAuth.verifyIdToken(idToken);
+
+    // Authentication and authorization are separate:
+    // being a valid Firebase user does not automatically make someone an admin.
+    if (decodedToken.admin !== true) {
+      return NextResponse.json({ error: 'Unauthorized.' }, { status: 403 });
+    }
+
+    // Require the administrator to have signed in recently before
+    // allowing the ID token to become a longer-lived session.
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+
+    if (nowInSeconds - decodedToken.auth_time > RECENT_SIGN_IN_SECONDS) {
+      return NextResponse.json({ error: 'Please sign in again.' }, { status: 401 });
+    }
+
+    // Exchange the short-lived Firebase ID token for a server-managed
+    // session cookie that protected admin pages can verify.
+    const sessionCookie = await adminAuth.createSessionCookie(idToken, {
+      expiresIn: SESSION_DURATION_MS,
+    });
+
+    const response = NextResponse.json({ success: true });
+
+    response.cookies.set(SESSION_COOKIE_NAME, sessionCookie, {
+      // Prevent browser JavaScript from reading the authentication cookie.
+      httpOnly: true,
+
+      // HTTPS-only in production. Local development uses HTTP.
+      secure: process.env.NODE_ENV === 'production',
+
+      // Helps protect against cross-site request abuse while still allowing
+      // normal navigation within the application.
+      sameSite: 'lax',
+
+      path: '/',
+      maxAge: SESSION_DURATION_MS / 1000,
+    });
+
+    return response;
+  } catch {
+    // Do not expose Firebase/internal authentication errors to the client.
+    return NextResponse.json({ error: 'Authentication failed.' }, { status: 401 });
+  }
+}
+
+export async function DELETE(request) {
+  const origin = request?.headers?.get?.('origin');
+
+  const fetchSite = request?.headers?.get?.('sec-fetch-site');
+
+  // Require a trusted origin or an explicitly same-origin request.
+  if (!origin && fetchSite !== 'same-origin') {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  // Block requests originating from other websites.
+  if (fetchSite === 'cross-site') {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  if (origin && origin !== new URL(request.url).origin) {
+    return NextResponse.json({ error: 'Forbidden.' }, { status: 403 });
+  }
+
+  const response = NextResponse.json({ success: true });
+  // Logging out means removing the server-managed session cookie.
+  // The browser-side Firebase user was already signed out after login,
+  // so this cookie is what actually controls access to the admin area.
+  response.cookies.set(SESSION_COOKIE_NAME, '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: 0,
+  });
+
+  return response;
+}
