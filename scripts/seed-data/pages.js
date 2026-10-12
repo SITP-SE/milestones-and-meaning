@@ -12,7 +12,7 @@ export const pages = {
         ],
         cta: {
           label: 'Book a Consultation',
-          href: '/#contact',
+          href: '/book/discovery',
           icon: false,
           pill: true,
         },
@@ -86,7 +86,7 @@ export const pages = {
         lines: ['Personalized wedding officiation with meaning, warmth, and every detail handled.'],
         cta: {
           label: 'Book a Consultation',
-          href: '/#contact',
+          href: '/book/discovery',
           icon: false,
           pill: true,
         },

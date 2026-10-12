@@ -32,7 +32,7 @@ export default function Hero() {
           </p>
 
           <Link
-            href="/#contact"
+            href="/book/discovery"
             className="bg-terracotta text-body flex items-center gap-2.5 rounded-[10px] p-5 text-white transition-opacity hover:opacity-90"
           >
             Book a Free 15-Minute Consultation
