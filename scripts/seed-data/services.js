@@ -20,7 +20,7 @@ export const services = {
     name: 'The Strong Start Program',
     title: 'The Strong Start Program',
     body: 'Six-session marriage preparation',
-    href: '/strong-start',
+    href: '/services/strong-start',
     priceCents: 95500,
     isGiftable: true,
     requiresDeposit: true,

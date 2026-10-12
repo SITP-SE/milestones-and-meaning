@@ -1,17 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-function formatPrice(priceCents) {
-  if (typeof priceCents !== 'number' || priceCents <= 0) {
-    return 'Pricing discussed together';
-  }
+import { DISCUSSED_PRICE_LABEL, formatPrice } from '@/lib/format-price';
 
-  return new Intl.NumberFormat('en-CA', {
-    style: 'currency',
-    currency: 'CAD',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
-  }).format(priceCents / 100);
+function priceLabel(priceCents) {
+  return formatPrice(priceCents) ?? DISCUSSED_PRICE_LABEL;
 }
 
 export default function Services({ services = [] }) {
@@ -52,7 +45,7 @@ export default function Services({ services = [] }) {
               <p className="text-body text-stone mt-3">{featured.body}</p>
               <span aria-hidden="true" className="bg-ink/25 mt-5 h-px w-14" />
               <p className="font-heading text-ink mt-4 text-[1.5rem] leading-none sm:text-[1.875rem]">
-                {formatPrice(featured.priceCents)}
+                {priceLabel(featured.priceCents)}
               </p>
               <p className="text-body text-brand mt-4">
                 Explore the complete package <span aria-hidden="true">&rarr;</span>
@@ -77,7 +70,7 @@ export default function Services({ services = [] }) {
                 </h3>
                 <p className="text-body text-ink/80 mt-2 font-light">{service.body}</p>
                 <p className="text-body text-brand mt-6 flex items-end justify-between gap-4 font-bold">
-                  <span>{formatPrice(service.priceCents)}</span>
+                  <span>{priceLabel(service.priceCents)}</span>
                   <span aria-hidden="true" className="text-[1.25rem] font-normal">
                     &rarr;
                   </span>

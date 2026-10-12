@@ -87,6 +87,7 @@ export async function saveServiceAction(_previousState, formData) {
   // Refresh pages that display service information.
   revalidatePath('/');
   revalidatePath('/services');
+  revalidatePath('/services', 'layout');
   revalidatePath('/admin/services');
 
   return {

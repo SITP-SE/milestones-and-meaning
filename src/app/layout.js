@@ -1,5 +1,5 @@
 import Navbar from '@/components/layout/Navbar';
-import { fasthand, inter, libertinusSerif, roboto } from './fonts';
+import { fasthand, inter, libertinusSerif, manjari } from './fonts';
 import './globals.css';
 
 export const metadata = {
@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${roboto.variable} ${libertinusSerif.variable} ${fasthand.variable} h-full antialiased`}
+      className={`${inter.variable} ${manjari.variable} ${libertinusSerif.variable} ${fasthand.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <Navbar />

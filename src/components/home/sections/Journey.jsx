@@ -7,7 +7,7 @@ const chapters = [
     title: 'Build a strong foundation',
     body: 'Personalized conversations before marriage.',
     cta: 'Explore Strong Start',
-    href: '/strong-start',
+    href: '/services/strong-start',
     image: '/images/journey-prepare.png',
     alt: 'Two people walking along the shore at sunset',
   },

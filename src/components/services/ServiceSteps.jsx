@@ -14,7 +14,7 @@ export default function ServiceSteps({ steps }) {
               {String(index + 1).padStart(2, '0')}
             </span>
             <div>
-              <h2 className="font-wordmark text-ink text-[1.625rem] leading-none">{step.title}</h2>
+              <h2 className="font-heading text-ink text-[1.625rem] leading-none">{step.title}</h2>
               <p className="text-body text-ink mt-2 leading-normal">
                 {step.lines.map((line) => (
                   <span key={line} className="block">
