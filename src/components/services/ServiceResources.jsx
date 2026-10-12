@@ -2,7 +2,7 @@ export default function ServiceResources({ eyebrow, headline, body, items }) {
   return (
     <div>
       <p className="text-lead text-brand uppercase">{eyebrow}</p>
-      <h2 className="font-wordmark text-ink mt-5 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
+      <h2 className="font-heading text-ink mt-5 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
         {headline}
       </h2>
       <p className="text-lead text-ink mt-5 max-w-[640px]">{body}</p>

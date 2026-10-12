@@ -1,4 +1,4 @@
-import { Fasthand, Inter, Roboto } from 'next/font/google';
+import { Fasthand, Inter, Manjari } from 'next/font/google';
 import localFont from 'next/font/local';
 
 export const inter = Inter({
@@ -7,9 +7,10 @@ export const inter = Inter({
   display: 'swap',
 });
 
-export const roboto = Roboto({
-  variable: '--font-roboto',
+export const manjari = Manjari({
+  variable: '--font-manjari',
   subsets: ['latin'],
+  weight: ['400', '700'],
   display: 'swap',
 });
 

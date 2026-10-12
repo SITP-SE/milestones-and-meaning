@@ -1,4 +1,4 @@
-import { getServices } from '@/server/services/get-services';
+import { getServiceForPage, getServices } from '@/server/services/get-services';
 import { adminDb } from '@/server/firebase/admin';
 
 jest.mock('next/cache', () => ({
@@ -50,6 +50,31 @@ describe('getServices', () => {
       id: 'wedding-officiation',
       title: 'Wedding Officiation',
       priceCents: 59500,
+    });
+  });
+
+  test('finds a service by its public page href', async () => {
+    adminDb.collection.mockReturnValue({
+      get: jest.fn().mockResolvedValue({
+        docs: [
+          {
+            id: 'strong_start',
+            data: () => ({
+              order: 1,
+              href: '/services/strong-start',
+              priceCents: 95500,
+            }),
+          },
+        ],
+      }),
+    });
+
+    const service = await getServiceForPage('strong-start');
+
+    expect(service).toMatchObject({
+      id: 'strong_start',
+      href: '/services/strong-start',
+      priceCents: 95500,
     });
   });
 

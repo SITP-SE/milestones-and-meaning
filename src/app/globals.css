@@ -23,7 +23,7 @@
 
   /* Typefaces */
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manjari), ui-sans-serif, system-ui, sans-serif;
   --font-wordmark: var(--font-inter), ui-serif, Georgia, serif;
   --font-script: var(--font-fasthand), ui-serif, cursive;
 

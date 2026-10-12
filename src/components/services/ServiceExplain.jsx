@@ -6,7 +6,7 @@ export default function ServiceExplain({ eyebrow, headline, paragraphs }) {
           <span className="flex items-start justify-between gap-4">
             <span>
               {eyebrow && <span className="text-body text-brand block uppercase">{eyebrow}</span>}
-              <span className="font-wordmark text-ink mt-2 block text-[1.5rem] leading-tight">
+              <span className="font-heading text-ink mt-2 block text-[1.5rem] leading-tight">
                 {headline}
               </span>
             </span>
@@ -34,7 +34,7 @@ export default function ServiceExplain({ eyebrow, headline, paragraphs }) {
 
       <div className="hidden lg:block">
         {eyebrow && <p className="text-lead text-brand uppercase">{eyebrow}</p>}
-        <h2 className="font-wordmark text-ink mt-5 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
+        <h2 className="font-heading text-ink mt-5 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
           {headline}
         </h2>
         <div className="mt-5 flex w-full flex-col gap-4">

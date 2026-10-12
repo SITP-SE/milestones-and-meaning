@@ -26,8 +26,24 @@ export async function readServices() {
 }
 
 // Public pages can tolerate cached data to reduce Firestore reads.
-// The cache expires after one hour.
-export const getServices = unstable_cache(readServices, ['services'], {
+// The cache expires after one hour. Skip it against the emulator so a
+// reseed shows up immediately.
+const getCachedServices = unstable_cache(readServices, ['services'], {
   revalidate: 3600,
   tags: ['services'],
 });
+
+export function getServices() {
+  if (process.env.FIRESTORE_EMULATOR_HOST) {
+    return readServices();
+  }
+
+  return getCachedServices();
+}
+
+export async function getServiceForPage(pageId) {
+  const href = `/services/${pageId}`;
+  const services = await getServices();
+
+  return services.find((service) => service.href === href) ?? null;
+}

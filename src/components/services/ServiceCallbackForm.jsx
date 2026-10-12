@@ -14,10 +14,10 @@ export default function ServiceCallbackForm({ eyebrow, headline, body }) {
   return (
     <section
       id="callback"
-      className="border-terracotta/50 scroll-mt-24 rounded-[20px] border p-6 sm:p-8 lg:p-10"
+      className="border-terracotta/50 w-full min-w-0 scroll-mt-24 rounded-[20px] border p-4 sm:p-8 lg:p-10"
     >
       <p className="text-body text-terracotta font-medium tracking-wide uppercase">{eyebrow}</p>
-      <h2 className="font-wordmark text-ink mt-3 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
+      <h2 className="font-heading text-ink mt-3 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
         {headline}
       </h2>
       <p className="text-lead text-ink mt-4 max-w-[680px] leading-normal">{body}</p>
@@ -31,25 +31,25 @@ export default function ServiceCallbackForm({ eyebrow, headline, body }) {
           <p className="text-lead">Thank you. We&apos;ll call you as soon as we can.</p>
         </div>
       ) : (
-        <form className="mt-8 grid gap-5 sm:grid-cols-2" onSubmit={handleSubmit}>
-          <label className="text-body text-ink flex flex-col gap-2 font-medium">
+        <form className="mt-8 grid w-full min-w-0 gap-5 sm:grid-cols-2" onSubmit={handleSubmit}>
+          <label className="text-body text-ink flex min-w-0 flex-col gap-2 font-medium">
             Name
             <input
               type="text"
               name="name"
               autoComplete="name"
               required
-              className="border-mist bg-paper text-lead text-ink focus:border-terracotta rounded-[10px] border px-4 py-3 font-normal transition-colors outline-none"
+              className="border-mist bg-paper text-lead text-ink focus:border-terracotta w-full min-w-0 rounded-[10px] border px-4 py-3 font-normal transition-colors outline-none"
             />
           </label>
-          <label className="text-body text-ink flex flex-col gap-2 font-medium">
+          <label className="text-body text-ink flex min-w-0 flex-col gap-2 font-medium">
             Phone number
             <input
               type="tel"
               name="phone"
               autoComplete="tel"
               required
-              className="border-mist bg-paper text-lead text-ink focus:border-terracotta rounded-[10px] border px-4 py-3 font-normal transition-colors outline-none"
+              className="border-mist bg-paper text-lead text-ink focus:border-terracotta w-full min-w-0 rounded-[10px] border px-4 py-3 font-normal transition-colors outline-none"
             />
           </label>
           <button

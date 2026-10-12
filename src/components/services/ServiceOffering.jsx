@@ -16,7 +16,7 @@ export default function ServiceOffering({ eyebrow, price, body, includes, cta, i
       <div className="flex w-full flex-col items-start gap-[30px] md:w-1/2">
         <div className="flex flex-col gap-4">
           <h2 className="text-lead text-brand font-normal uppercase">{eyebrow}</h2>
-          <p className="font-wordmark text-ink text-[clamp(2.5rem,6vw,3.125rem)] leading-none">
+          <p className="font-heading text-ink text-[clamp(2.5rem,6vw,3.125rem)] leading-none">
             {price}
           </p>
         </div>
