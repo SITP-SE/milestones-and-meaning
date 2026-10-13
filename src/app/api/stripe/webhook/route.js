@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 
 import { recordPaidCheckout } from '@/server/payments/record-paid-checkout';
+import { syncPaymentRefunds } from '@/server/payments/sync-payment-refunds';
 import { verifyStripeWebhook } from '@/server/stripe/verify-webhook';
 
 export const runtime = 'nodejs';
+
+const REFUND_EVENT_TYPES = new Set(['refund.created', 'refund.updated', 'refund.failed']);
 
 const MAX_WEBHOOK_BYTES = 1024 * 1024;
 
@@ -55,6 +58,8 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Invalid webhook body.' }, { status: 400 });
   }
 
+  // Ignore Stripe events that this endpoint does not handle.
+
   let event;
 
   try {
@@ -64,31 +69,54 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Invalid webhook signature.' }, { status: 400 });
   }
 
-  // Other events, including refunds, will be handled separately.
-  if (event.type !== 'checkout.session.completed') {
+  const isCheckout = event.type === 'checkout.session.completed';
+  const isRefund = REFUND_EVENT_TYPES.has(event.type);
+
+  if (!isCheckout && !isRefund) {
     return NextResponse.json({ received: true });
   }
 
-  const session = event.data.object;
-
-  // A completed Checkout Session is not necessarily paid.
-  if (session.payment_status !== 'paid') {
+  // Completing Checkout does not always mean payment succeeded.
+  if (isCheckout && event.data.object?.payment_status !== 'paid') {
     return NextResponse.json({ received: true });
   }
 
   try {
-    await recordPaidCheckout(session);
+    if (isCheckout) {
+      await recordPaidCheckout(event.data.object);
+    } else {
+      const refund = event.data.object;
+
+      if (refund?.object !== 'refund') {
+        throw new Error('Invalid refund event.');
+      }
+
+      // Our Checkout payments use Stripe PaymentIntents.
+      // Other types of Stripe refunds may not have one.
+      if (refund.payment_intent == null) {
+        return NextResponse.json({ received: true });
+      }
+
+      const paymentIntentId =
+        typeof refund.payment_intent === 'string'
+          ? refund.payment_intent
+          : refund.payment_intent?.id;
+
+      if (!paymentIntentId) {
+        throw new Error('Invalid refund PaymentIntent.');
+      }
+
+      await syncPaymentRefunds(paymentIntentId);
+    }
   } catch {
-    // Record only event identifiers, not customer or card data.
     console.error('Stripe payment synchronization failed', {
       eventId: event.id,
       eventType: event.type,
     });
 
-    // Stripe must receive an error so it can retry delivery.
+    // Stripe should retry if database or Stripe retrieval fails.
     return NextResponse.json({ error: 'Webhook processing failed.' }, { status: 500 });
   }
 
-  // Acknowledge only after Firestore has successfully committed.
   return NextResponse.json({ received: true });
 }
