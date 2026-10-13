@@ -16,7 +16,7 @@ const chapters = [
     title: 'Mark the moment',
     body: 'Ceremonies shaped around your story.',
     cta: 'Explore marriage packages',
-    href: '/marriage-package',
+    href: '/services/marriage-package',
     image: '/images/journey-celebrate.png',
     alt: 'Wedding bands and a rose on soft fabric',
   },

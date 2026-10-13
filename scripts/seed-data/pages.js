@@ -1,4 +1,76 @@
 export const pages = {
+  'marriage-package': {
+    content: {
+      hero: {
+        hideImageOnMobile: true,
+        tone: 'cream',
+        eyebrow: 'Complete Marriage Package',
+        headline: 'Prepare for the marriage.\nCreate the ceremony.\nBegin with meaning.',
+        showPrice: true,
+        lines: [
+          'Thoughtful marriage preparation and a personalized ceremony woven together as one continuous experience.',
+        ],
+        cta: {
+          label: 'Reserve your date',
+          href: '/book/discovery',
+          icon: false,
+          pill: true,
+        },
+        image: {
+          src: '/images/service-marriage.png',
+          alt: 'An open journal, wedding rings, and a pencil on linen',
+        },
+      },
+      included: {
+        headline: 'One relationship, one continuous experience',
+        groups: [
+          {
+            title: 'Marriage preparation',
+            items: [
+              'Six premarital sessions focused on communication, values, intimacy, and conflict with care',
+              'Clarify expectations and build a shared vision',
+              'Explore strengths, growth areas, and money matters',
+              "A strong foundation for the marriage you'll keep building",
+            ],
+          },
+          {
+            title: 'Wedding Officiation',
+            items: [
+              'Ceremony design rooted in your story and values',
+              'Personalized vows, readings, and rituals that reflect you',
+              'Guidance for meaningful ways to include loved ones',
+              'A ceremony that marks the beginning with intention',
+            ],
+          },
+        ],
+      },
+      stepsEyebrow: 'Your journey, step by step',
+      steps: [
+        {
+          title: 'Six Preparation Sessions',
+          lines: ['Build a shared foundation before', 'you walk down the aisle.'],
+        },
+        {
+          title: 'Ceremony Planning',
+          lines: ['Shape vows, readings, and rituals with', 'someone who already knows your story.'],
+        },
+        {
+          title: 'Wedding day',
+          lines: ['A ceremony that marks the beginning', 'with intention, warmth, and care.'],
+        },
+      ],
+      invite: {
+        eyebrow: 'Beginning together',
+        headline: 'A Meaningful Beginning, From Preparation to Celebration',
+        paragraphs: [
+          "Your wedding day is a celebration of the relationship you've built, but it's also the beginning of a new chapter together. When the person guiding you through marriage preparation is also the person who officiates your wedding, those two experiences become part of the same journey.",
+          'As we explore your hopes, values, communication, and dreams for the future, we get to know what makes your relationship yours. Those conversations become the foundation for a ceremony that goes beyond beautiful words — one that reflects your story, honours your commitment, and gives meaning to the promises you make to each other.',
+          'There\'s no need to start from scratch or explain your relationship to someone new. The trust we build along the way allows your ceremony to feel more natural, personal, and connected to the life you\'re preparing to share. From the conversations that bring you closer to the moment you stand together and say "I do," every part of the experience has a place.',
+          "You don't need to have all the answers before you begin. We'll take the time to understand what matters to you, make space for the conversations worth having, and create a wedding day that feels true to who you are — and the marriage you're choosing to build.",
+        ],
+      },
+    },
+  },
   'strong-start': {
     content: {
       hero: {
@@ -70,7 +142,7 @@ export const pages = {
         body: 'Relationship guidance, officiation, paperwork - one clear path from start to finish.',
         cta: {
           label: "See what's included",
-          href: '/marriage-package',
+          href: '/services/marriage-package',
         },
       },
     },
@@ -196,7 +268,7 @@ export const pages = {
         body: 'Relationship guidance, officiation, paperwork - one clear path from start to finish.',
         cta: {
           label: "See what's included",
-          href: '/marriage-package',
+          href: '/services/marriage-package',
         },
       },
     },

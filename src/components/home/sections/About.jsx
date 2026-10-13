@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const credentials = [
   'Licensed Marriage Therapist',
   '20+ Years of Experience',
@@ -16,10 +18,15 @@ export default function About() {
         </div>
 
         <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-16">
-          <div
-            aria-hidden="true"
-            className="bg-brand h-64 w-full max-w-[420px] shrink-0 rounded-[22px] sm:h-80 lg:h-[420px] lg:w-[420px]"
-          />
+          <div className="relative h-64 w-full max-w-[420px] shrink-0 overflow-hidden rounded-[22px] sm:h-80 lg:h-[420px] lg:w-[420px]">
+            <Image
+              src="/images/headshot.png"
+              alt="Gabi, licensed marriage therapist and professional officiant"
+              fill
+              sizes="(min-width: 1024px) 420px, min(420px, 100vw)"
+              className="object-cover object-top"
+            />
+          </div>
 
           <div className="flex w-full flex-col items-center text-center lg:items-start lg:text-left">
             <div className="text-brand hidden w-full items-center justify-start gap-4 lg:flex">
