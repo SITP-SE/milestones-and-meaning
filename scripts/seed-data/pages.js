@@ -52,7 +52,10 @@ export const pages = {
         },
         {
           title: 'Ceremony Planning',
-          lines: ['Shape vows, readings, and rituals with', 'someone who already knows your story.'],
+          lines: [
+            'Shape vows, readings, and rituals with',
+            'someone who already knows your story.',
+          ],
         },
         {
           title: 'Wedding day',
