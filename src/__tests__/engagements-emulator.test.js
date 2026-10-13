@@ -14,11 +14,8 @@ jest.mock('@/server/auth/session', () => ({
 
 // Never run database integration tests against production.
 const isLocalEmulator =
-  ['127.0.0.1:8080', 'localhost:8080'].includes(
-    process.env.FIRESTORE_EMULATOR_HOST,
-  ) &&
-  process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ===
-    'milestones-and-meaning';
+  ['127.0.0.1:8080', 'localhost:8080'].includes(process.env.FIRESTORE_EMULATOR_HOST) &&
+  process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID === 'milestones-and-meaning';
 
 const describeWithEmulator = isLocalEmulator ? describe : describe.skip;
 
@@ -26,9 +23,7 @@ describeWithEmulator('service engagement Firestore integration', () => {
   let engagementRef;
 
   beforeAll(async () => {
-    engagementRef = adminDb
-      .collection('serviceEngagements')
-      .doc(`test_${randomUUID()}`);
+    engagementRef = adminDb.collection('serviceEngagements').doc(`test_${randomUUID()}`);
 
     await engagementRef.set({
       clientName: 'Test Client',
@@ -60,9 +55,7 @@ describeWithEmulator('service engagement Firestore integration', () => {
   test('retrieves an engagement from Firestore', async () => {
     const engagements = await getAdminEngagements();
 
-    const engagement = engagements.find(
-      (item) => item.id === engagementRef.id,
-    );
+    const engagement = engagements.find((item) => item.id === engagementRef.id);
 
     expect(engagement).toEqual(
       expect.objectContaining({
@@ -73,9 +66,7 @@ describeWithEmulator('service engagement Firestore integration', () => {
       }),
     );
 
-    expect(engagement.createdAt).toEqual(
-      expect.any(String),
-    );
+    expect(engagement.createdAt).toEqual(expect.any(String));
   });
 
   test('updates only the engagement status', async () => {
@@ -93,9 +84,9 @@ describeWithEmulator('service engagement Firestore integration', () => {
   test('rejects unauthorized status updates', async () => {
     getAdminSession.mockResolvedValue(null);
 
-    await expect(
-      updateEngagementStatus(engagementRef.id, 'completed'),
-    ).rejects.toThrow('Unauthorized');
+    await expect(updateEngagementStatus(engagementRef.id, 'completed')).rejects.toThrow(
+      'Unauthorized',
+    );
 
     const snapshot = await engagementRef.get();
 
