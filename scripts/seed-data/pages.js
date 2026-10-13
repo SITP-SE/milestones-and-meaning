@@ -75,6 +75,74 @@ export const pages = {
       },
     },
   },
+  'relationship-check-in': {
+    content: {
+      hero: {
+        hideImageOnMobile: true,
+        tone: 'cream',
+        eyebrow: 'Relationship Check-In',
+        headline: 'Even healthy relationships\nneed attention',
+        lines: [
+          'A low-key check-in for couples who want to stay connected, catch small things early, and keep building something solid.',
+        ],
+        cta: {
+          label: 'Book a Free Consultation \u2192',
+          href: '/#contact',
+          icon: false,
+          pill: true,
+        },
+        image: {
+          src: '/images/grief-hero.png',
+          alt: 'One hand resting on another beside a mug on a table',
+        },
+      },
+      steps: [
+        {
+          title: 'A free conversation',
+          lines: [
+            "Open, low-pressure chat about what's",
+            "working, what's not, and what you both need",
+          ],
+        },
+        {
+          title: 'A focused plan',
+          lines: [
+            'We identify one or two areas that matter',
+            'most and create a simple, realistic plan together.',
+          ],
+        },
+        {
+          title: 'Tools you keep',
+          lines: [
+            'You leave with practical tools, clear next',
+            'steps, and a way forward that fits your relationship.',
+          ],
+        },
+      ],
+      invite: {
+        eyebrow: 'Staying connected',
+        headline: "You don't have to wait for a problem to talk",
+        paragraphs: [
+          "Some of the most important conversations in a relationship happen before anything feels urgent. A check-in is a chance to slow down together, notice what's working, and name the small things that are easier to tend to now than later. It is not therapy for a crisis, and it is not a sign that something is wrong. It is a quiet, practical way to stay close.",
+          "We'll start with a free conversation about how things feel between you — the rhythms of daily life, the places you get stuck, and what you each need more of. From there, we focus on one or two areas that matter most and shape a simple plan you can actually live with. You leave with tools, language, and next steps that fit your relationship, not a generic script.",
+          'Couples come in a good season and want to keep it. Others notice they feel more like roommates than partners, or that life changes are already on the horizon. Some just want to talk about communication before a pattern sets in. Whatever brings you, the pace stays low-pressure and the work stays specific to the two of you.',
+          "You don't need a list of problems, or even a clear agenda, to begin. We'll listen, help you find the thread, and walk with you toward a way of relating that feels more connected, honest, and sustainable. A relationship that is already solid can still be strengthened — and a check-in is one of the gentlest ways to do that.",
+        ],
+      },
+      reasons: {
+        eyebrow: 'Reasons people reach out',
+        headline: 'A check-in may help when...',
+        items: [
+          { text: "You're in a good season and want to stay that way" },
+          { text: 'Life changes are on the horizon' },
+          { text: 'You want to improve communication before it becomes a pattern' },
+          { text: 'You feel more like roommates than partners lately' },
+          { text: 'Small things are starting to build up' },
+          { text: 'You want to reconnect and realign on what matters' },
+        ],
+      },
+    },
+  },
   'wedding-officiation': {
     content: {
       hero: {
