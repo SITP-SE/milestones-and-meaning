@@ -6,9 +6,11 @@ export default function ServiceExplain({ eyebrow, headline, paragraphs }) {
           <span className="flex items-start justify-between gap-4">
             <span>
               {eyebrow && <span className="text-body text-brand block uppercase">{eyebrow}</span>}
-              <span className="font-heading text-ink mt-2 block text-[1.5rem] leading-tight">
-                {headline}
-              </span>
+              {headline && (
+                <span className="font-heading text-ink mt-2 block text-[1.5rem] leading-tight">
+                  {headline}
+                </span>
+              )}
             </span>
             <span
               aria-hidden="true"
@@ -34,10 +36,12 @@ export default function ServiceExplain({ eyebrow, headline, paragraphs }) {
 
       <div className="hidden lg:block">
         {eyebrow && <p className="text-lead text-brand uppercase">{eyebrow}</p>}
-        <h2 className="font-heading text-ink mt-5 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-none">
-          {headline}
-        </h2>
-        <div className="mt-5 flex w-full flex-col gap-4">
+        {headline && (
+          <h2 className="font-heading text-ink mt-5 text-[clamp(1.75rem,1.2rem+1.6vw,2.5rem)] leading-tight">
+            {headline}
+          </h2>
+        )}
+        <div className={`${headline ? 'mt-5' : 'mt-4'} flex w-full flex-col gap-4`}>
           {paragraphs.map((paragraph) => (
             <p key={paragraph} className="text-lead text-ink leading-normal">
               {paragraph}

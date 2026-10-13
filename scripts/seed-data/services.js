@@ -5,7 +5,7 @@ export const services = {
     name: 'Complete Marriage Package',
     title: 'Complete Marriage Package',
     body: 'Six personalized preparation sessions and a ceremony shaped by someone who already knows your story.',
-    href: '/marriage-package',
+    href: '/services/marriage-package',
     priceCents: 192500,
     isGiftable: true,
     requiresDeposit: true,

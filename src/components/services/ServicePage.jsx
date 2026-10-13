@@ -2,6 +2,7 @@ import ServiceCallbackForm from './ServiceCallbackForm';
 import ServiceExplain from './ServiceExplain';
 import ServiceFeatures from './ServiceFeatures';
 import ServiceHero from './ServiceHero';
+import ServiceIncluded from './ServiceIncluded';
 import ServiceOffering from './ServiceOffering';
 import ServicePrompt from './ServicePrompt';
 import ServiceReasons from './ServiceReasons';
@@ -24,6 +25,7 @@ export default function ServicePage({ content }) {
     content.steps?.length > 0 ||
     content.offering ||
     content.explain ||
+    content.included ||
     content.reasons ||
     content.resources ||
     content.callbackForm;
@@ -38,13 +40,7 @@ export default function ServicePage({ content }) {
         <section className="bg-ivory">
           <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-16 px-6 py-16 lg:gap-20 lg:px-[50px] lg:py-20">
             {content.features && <ServiceFeatures items={content.features} />}
-            {showInviteWithFeatures && (
-              <ServiceExplain
-                eyebrow={content.invite.eyebrow}
-                headline={content.invite.headline}
-                paragraphs={content.invite.paragraphs}
-              />
-            )}
+            {showInviteWithFeatures && <ServiceExplain {...content.invite} />}
             {showEndPromptOnTone && <Prompt prompt={content.prompt} />}
           </div>
         </section>
@@ -66,14 +62,11 @@ export default function ServicePage({ content }) {
             }`}
           >
             {content.explain && <ServiceExplain {...content.explain} />}
-            {content.steps?.length > 0 && <ServiceSteps steps={content.steps} />}
-            {content.invite && hasIvoryBody && (
-              <ServiceExplain
-                eyebrow={content.invite.eyebrow}
-                headline={content.invite.headline}
-                paragraphs={content.invite.paragraphs}
-              />
+            {content.included && <ServiceIncluded {...content.included} />}
+            {content.steps?.length > 0 && (
+              <ServiceSteps eyebrow={content.stepsEyebrow} steps={content.steps} />
             )}
+            {content.invite && hasIvoryBody && <ServiceExplain {...content.invite} />}
             {content.offering && <ServiceOffering {...content.offering} />}
             {content.reasons && <ServiceReasons {...content.reasons} />}
             {content.callbackForm && <ServiceCallbackForm {...content.callbackForm} />}
