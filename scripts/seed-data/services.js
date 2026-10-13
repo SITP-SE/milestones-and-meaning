@@ -42,7 +42,7 @@ export const services = {
     name: 'Relationship Check-In',
     title: 'Relationship Check-In',
     body: 'A supportive space to connect, reflect & realign',
-    href: '/relationship-check-in',
+    href: '/services/relationship-check-in',
     priceCents: 0,
     isGiftable: false,
     requiresDeposit: false,

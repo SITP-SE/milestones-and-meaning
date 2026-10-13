@@ -25,7 +25,7 @@ const chapters = [
     title: 'Keep choosing each other',
     body: 'Ongoing support for real life together.',
     cta: 'Explore relationship support',
-    href: '/relationship-check-in',
+    href: '/services/relationship-check-in',
     image: '/images/journey-strengthen.png',
     alt: 'A couple exchanging rings',
   },
