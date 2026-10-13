@@ -1,3 +1,5 @@
+/** @jest-environment node */
+
 import Stripe from 'stripe';
 
 import { verifyStripeWebhook } from '@/server/stripe/verify-webhook';
@@ -18,9 +20,11 @@ const payload = JSON.stringify({
 
 describe('verifyStripeWebhook', () => {
   const originalSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const originalSecretKey = process.env.STRIPE_SECRET_KEY;
 
   beforeEach(() => {
     process.env.STRIPE_WEBHOOK_SECRET = TEST_SECRET;
+    process.env.STRIPE_SECRET_KEY = 'sk_test_example';
   });
 
   afterAll(() => {
@@ -28,6 +32,12 @@ describe('verifyStripeWebhook', () => {
       delete process.env.STRIPE_WEBHOOK_SECRET;
     } else {
       process.env.STRIPE_WEBHOOK_SECRET = originalSecret;
+    }
+
+    if (originalSecretKey === undefined) {
+      delete process.env.STRIPE_SECRET_KEY;
+    } else {
+      process.env.STRIPE_SECRET_KEY = originalSecretKey;
     }
   });
 
