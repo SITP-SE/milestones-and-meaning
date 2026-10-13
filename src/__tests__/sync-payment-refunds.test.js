@@ -2,6 +2,7 @@
 
 import { adminDb } from '@/server/firebase/admin';
 import { getSuccessfulRefundAmount } from '@/server/payments/get-successful-refund-amount';
+import { getStripeClient } from '@/server/stripe/client';
 import { syncPaymentRefunds } from '@/server/payments/sync-payment-refunds';
 
 jest.mock('@/server/firebase/admin', () => ({
@@ -15,6 +16,10 @@ jest.mock('@/server/payments/get-successful-refund-amount', () => ({
   getSuccessfulRefundAmount: jest.fn(),
 }));
 
+jest.mock('@/server/stripe/client', () => ({
+  getStripeClient: jest.fn(),
+}));
+
 describe('syncPaymentRefunds', () => {
   const paymentRef = { id: 'cs_test_123' };
 
@@ -22,8 +27,25 @@ describe('syncPaymentRefunds', () => {
   let transactionGet;
   let transactionUpdate;
 
+  let retrievePaymentIntent;
+
   beforeEach(() => {
     jest.clearAllMocks();
+
+    retrievePaymentIntent = jest.fn().mockResolvedValue({
+      id: 'pi_test123',
+      object: 'payment_intent',
+      metadata: {
+        source: 'milestones_and_meaning',
+        serviceId: 'strong_start',
+      },
+    });
+
+    getStripeClient.mockReturnValue({
+      paymentIntents: {
+        retrieve: retrievePaymentIntent,
+      },
+    });
 
     jest.spyOn(Date, 'now').mockReturnValue(12345);
 
@@ -135,7 +157,7 @@ describe('syncPaymentRefunds', () => {
     });
 
     await expect(syncPaymentRefunds('pi_test123')).rejects.toThrow(
-      'Missing or ambiguous payment record.',
+      'Website payment record is missing.',
     );
 
     expect(getSuccessfulRefundAmount).not.toHaveBeenCalled();
@@ -147,9 +169,7 @@ describe('syncPaymentRefunds', () => {
       docs: [{ ref: paymentRef }, { ref: { id: 'duplicate' } }],
     });
 
-    await expect(syncPaymentRefunds('pi_test123')).rejects.toThrow(
-      'Missing or ambiguous payment record.',
-    );
+    await expect(syncPaymentRefunds('pi_test123')).rejects.toThrow('Ambiguous payment record.');
 
     expect(transactionUpdate).not.toHaveBeenCalled();
   });
@@ -234,5 +254,64 @@ describe('syncPaymentRefunds', () => {
     expect(olderResult.updated).toBe(false);
     expect(payment.refundAmountCents).toBe(20000);
     expect(payment.status).toBe('partially_refunded');
+  });
+
+  test('ignores unrelated Stripe payments', async () => {
+    queryGet.mockResolvedValue({
+      size: 0,
+      docs: [],
+    });
+
+    retrievePaymentIntent.mockResolvedValue({
+      id: 'pi_test123',
+      object: 'payment_intent',
+      metadata: {
+        source: 'another_application',
+      },
+    });
+
+    const result = await syncPaymentRefunds('pi_test123');
+
+    expect(result).toEqual({
+      updated: false,
+      ignored: true,
+    });
+
+    expect(retrievePaymentIntent).toHaveBeenCalledWith('pi_test123');
+
+    expect(getSuccessfulRefundAmount).not.toHaveBeenCalled();
+    expect(adminDb.runTransaction).not.toHaveBeenCalled();
+  });
+
+  test('retries missing legacy website payments', async () => {
+    queryGet.mockResolvedValue({
+      size: 0,
+      docs: [],
+    });
+
+    retrievePaymentIntent.mockResolvedValue({
+      id: 'pi_test123',
+      object: 'payment_intent',
+      metadata: {
+        serviceId: 'strong_start',
+      },
+    });
+
+    await expect(syncPaymentRefunds('pi_test123')).rejects.toThrow(
+      'Website payment record is missing.',
+    );
+  });
+
+  test('propagates Stripe PaymentIntent retrieval failures', async () => {
+    queryGet.mockResolvedValue({
+      size: 0,
+      docs: [],
+    });
+
+    retrievePaymentIntent.mockRejectedValue(new Error('Stripe unavailable'));
+
+    await expect(syncPaymentRefunds('pi_test123')).rejects.toThrow('Stripe unavailable');
+
+    expect(adminDb.runTransaction).not.toHaveBeenCalled();
   });
 });
