@@ -22,6 +22,11 @@ export default function ServiceHero({
   hideImageOnMobile = false,
   children,
 }) {
+  // Existing Firestore pages may still use the old consultation link.
+  const consultationHref =
+    cta?.label === 'Book a Consultation' && cta?.href === '/#contact'
+      ? '/book/discovery'
+      : cta?.href;
   return (
     <section className={backgrounds[tone] ?? 'bg-linen'}>
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-10 px-6 py-16 lg:flex-row lg:items-center lg:gap-[50px] lg:px-[50px] lg:pt-[100px] lg:pb-[50px]">
@@ -57,7 +62,7 @@ export default function ServiceHero({
             </p>
           )}
           {cta && (
-            <ServiceButton href={cta.href} shape={cta.pill ? 'pill' : 'default'}>
+            <ServiceButton href={consultationHref} shape={cta.pill ? 'pill' : 'default'}>
               {cta.icon === 'phone' && <PhoneIcon className="size-5" />}
               {cta.icon !== false && cta.icon !== 'phone' && <MessageIcon className="size-5" />}
               {cta.label}

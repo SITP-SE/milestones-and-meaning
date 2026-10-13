@@ -47,7 +47,7 @@ export default function MobileMenu({ links, open, onOpenChange, showBookCta = tr
           </ul>
           {showBookCta && (
             <Link
-              href="/#contact"
+              href="/book/discovery"
               onClick={() => onOpenChange(false)}
               className="bg-terracotta text-body mt-3 inline-flex items-center gap-2.5 rounded-full px-4 py-3 text-white"
             >

@@ -11,7 +11,7 @@ const navLinks = [
   { label: 'Services', href: '/services' },
   { label: 'About Us', href: '/#about' },
   { label: 'Resources', href: '/#resources' },
-  { label: 'Contact us', href: '/#contact' },
+  { label: 'Contact us', href: '/book/discovery' },
 ];
 
 function isCurrent(pathname, href) {
@@ -103,7 +103,7 @@ export default function Navbar() {
 
         {pathname !== '/services/funeral' && (
           <Link
-            href="/#contact"
+            href="/book/discovery"
             className="bg-terracotta text-body hidden items-center gap-2.5 rounded-full p-[15px] font-light text-white transition-opacity hover:opacity-90 lg:flex"
           >
             Book a Consultation
