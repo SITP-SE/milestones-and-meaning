@@ -96,6 +96,7 @@ describe('createServiceCheckoutSession', () => {
         payment_intent_data: {
           metadata: {
             serviceId: 'strong_start',
+            source: 'milestones_and_meaning',
           },
         },
       }),

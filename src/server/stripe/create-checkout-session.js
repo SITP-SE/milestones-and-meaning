@@ -89,6 +89,7 @@ export async function createServiceCheckoutSession(serviceId) {
     payment_intent_data: {
       metadata: {
         serviceId,
+        source: 'milestones_and_meaning',
       },
     },
 
