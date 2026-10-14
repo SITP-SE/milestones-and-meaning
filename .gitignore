@@ -51,3 +51,11 @@ next-env.d.ts
 # Firestore Emulator
 firestore-debug.log
 firebase-debug.log
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example

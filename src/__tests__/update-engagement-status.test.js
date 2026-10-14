@@ -1,14 +1,6 @@
-import { FieldValue } from 'firebase-admin/firestore';
-
 import { getAdminSession } from '@/server/auth/session';
-import { adminDb } from '@/server/firebase/admin';
+import { adminDb, FieldValue } from '@/server/firebase/admin';
 import { updateEngagementStatus } from '@/server/engagements/update-engagement-status';
-
-jest.mock('firebase-admin/firestore', () => ({
-  FieldValue: {
-    serverTimestamp: jest.fn(),
-  },
-}));
 
 jest.mock('@/server/auth/session', () => ({
   getAdminSession: jest.fn(),
@@ -17,6 +9,9 @@ jest.mock('@/server/auth/session', () => ({
 jest.mock('@/server/firebase/admin', () => ({
   adminDb: {
     collection: jest.fn(),
+  },
+  FieldValue: {
+    serverTimestamp: jest.fn(),
   },
 }));
 

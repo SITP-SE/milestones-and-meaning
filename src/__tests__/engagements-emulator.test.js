@@ -1,12 +1,11 @@
 /** @jest-environment node */
 
 import { randomUUID } from 'node:crypto';
-import { FieldValue } from 'firebase-admin/firestore';
 
 import { getAdminSession } from '@/server/auth/session';
 import { getAdminEngagements } from '@/server/engagements/get-admin-engagements';
 import { updateEngagementStatus } from '@/server/engagements/update-engagement-status';
-import { adminDb } from '@/server/firebase/admin';
+import { adminDb, FieldValue } from '@/server/firebase/admin';
 
 jest.mock('@/server/auth/session', () => ({
   getAdminSession: jest.fn(),
