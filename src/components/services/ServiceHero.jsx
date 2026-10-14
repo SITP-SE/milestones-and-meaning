@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { MessageIcon, PhoneIcon } from '@/components/ui/icons';
 import ServiceButton from './ServiceButton';
+import CheckoutButton from './CheckoutButton';
 
 const backgrounds = {
   linen: 'bg-linen',
@@ -16,6 +17,7 @@ export default function ServiceHero({
   lines,
   price,
   cta,
+  checkoutServiceId,
   image,
   tone = 'linen',
   hideImageOnMobile = false,
@@ -60,12 +62,33 @@ export default function ServiceHero({
               {deposit && <span className="text-lead text-stone">{deposit}</span>}
             </p>
           )}
-          {cta && (
-            <ServiceButton href={consultationHref} shape={cta.pill ? 'pill' : 'default'}>
-              {cta.icon === 'phone' && <PhoneIcon className="size-5" />}
-              {cta.icon !== false && cta.icon !== 'phone' && <MessageIcon className="size-5" />}
-              {cta.label}
-            </ServiceButton>
+
+          {(cta || checkoutServiceId) && (
+            <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+              {checkoutServiceId && <CheckoutButton serviceId={checkoutServiceId} />}
+
+              {cta && (
+                <ServiceButton
+                  href={checkoutServiceId ? '/book/discovery' : consultationHref}
+                  variant={checkoutServiceId ? 'outline' : 'solid'}
+                  shape={checkoutServiceId || cta.pill ? 'pill' : 'default'}
+                >
+                  {checkoutServiceId ? (
+                    'Book a Free 15-Minute Consultation'
+                  ) : (
+                    <>
+                      {cta.icon === 'phone' && <PhoneIcon className="size-5" />}
+
+                      {cta.icon !== false && cta.icon !== 'phone' && (
+                        <MessageIcon className="size-5" />
+                      )}
+
+                      {cta.label}
+                    </>
+                  )}
+                </ServiceButton>
+              )}
+            </div>
           )}
         </div>
         <div

@@ -168,4 +168,49 @@ describe('createServiceCheckoutSession', () => {
       'Stripe unavailable',
     );
   });
+
+  test('allows direct purchase of the Funeral & Memorial package', async () => {
+    getService.mockResolvedValue({
+      exists: true,
+      data: () => ({
+        title: 'Funeral & Memorial Services',
+        priceCents: 40000,
+      }),
+    });
+
+    await createServiceCheckoutSession('funeral_memorial_officiation');
+
+    expect(createSession).toHaveBeenCalledWith(
+      expect.objectContaining({
+        mode: 'payment',
+        line_items: [
+          expect.objectContaining({
+            price_data: expect.objectContaining({
+              currency: 'cad',
+              unit_amount: 40000,
+            }),
+          }),
+        ],
+        metadata: {
+          serviceId: 'funeral_memorial_officiation',
+        },
+      }),
+    );
+  });
+
+  test.each(['complete_marriage_package', 'wedding_officiation'])(
+    'supports approved online payment service %s',
+    async (serviceId) => {
+      await createServiceCheckoutSession(serviceId);
+
+      expect(createSession).toHaveBeenCalledTimes(1);
+      expect(createSession).toHaveBeenCalledWith(
+        expect.objectContaining({
+          metadata: {
+            serviceId,
+          },
+        }),
+      );
+    },
+  );
 });

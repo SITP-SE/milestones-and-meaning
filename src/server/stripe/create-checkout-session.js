@@ -1,5 +1,6 @@
 import { adminDb } from '@/server/firebase/admin';
 import { getStripeClient } from '@/server/stripe/client';
+import { isOnlinePaymentEligible } from '@/lib/online-payment-eligibility';
 
 function getCheckoutConfig() {
   let appUrl;
@@ -46,7 +47,7 @@ export async function createServiceCheckoutSession(serviceId) {
 
   // Services with consultation-based pricing cannot use
   // the standard fixed-price checkout.
-  if (!Number.isSafeInteger(priceCents) || priceCents <= 0 || priceCents > 100000000) {
+  if (!isOnlinePaymentEligible(serviceId, priceCents)) {
     throw new Error('Service is not available for online payment.');
   }
 

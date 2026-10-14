@@ -83,4 +83,21 @@ describe('applyServicePricing', () => {
     expect(priced.hero.price).toBe('$595');
     expect(priced.hero.deposit).toBeUndefined();
   });
+
+  test('shows the funeral package price when direct purchase is enabled', () => {
+    const priced = applyServicePricing(
+      {
+        hero: {
+          headline: 'Funeral & Memorial Services',
+          lines: ['Compassionate support.'],
+        },
+      },
+      {
+        id: 'funeral_memorial_officiation',
+        priceCents: 40000,
+      },
+    );
+
+    expect(priced.hero.price).toBe('$400');
+  });
 });

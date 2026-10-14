@@ -19,7 +19,7 @@ function Prompt({ prompt }) {
   return <ServicePrompt title={prompt.title} body={prompt.body} cta={prompt.cta} />;
 }
 
-export default function ServicePage({ content }) {
+export default function ServicePage({ content, checkoutServiceId }) {
   const promptFirst = content.prompt?.placement === 'start';
   const hasIvoryBody =
     content.steps?.length > 0 ||
@@ -35,7 +35,7 @@ export default function ServicePage({ content }) {
 
   return (
     <>
-      {content.hero && <ServiceHero {...content.hero} />}
+      {content.hero && <ServiceHero {...content.hero} checkoutServiceId={checkoutServiceId} />}
       {(content.features || showInviteWithFeatures || showEndPromptOnTone) && (
         <section className="bg-ivory">
           <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-16 px-6 py-16 lg:gap-20 lg:px-[50px] lg:py-20">
