@@ -1,6 +1,4 @@
-import { FieldValue } from 'firebase-admin/firestore';
-
-import { adminDb } from '@/server/firebase/admin';
+import { adminDb, FieldValue } from '@/server/firebase/admin';
 import { validatePaidCheckout } from '@/server/payments/validate-paid-checkout';
 
 export async function recordPaidCheckout(session) {

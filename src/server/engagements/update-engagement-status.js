@@ -1,8 +1,6 @@
-import { FieldValue } from 'firebase-admin/firestore';
-
 import { getAdminSession } from '@/server/auth/session';
 import { validateEngagementStatus } from '@/server/engagements/validate-engagement';
-import { adminDb } from '@/server/firebase/admin';
+import { adminDb, FieldValue } from '@/server/firebase/admin';
 
 export async function updateEngagementStatus(engagementId, status) {
   // Only an authorized administrator may change an engagement.

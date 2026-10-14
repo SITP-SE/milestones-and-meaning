@@ -160,3 +160,25 @@ npm run build
 ## CI
 
 GitHub Actions runs formatting, linting, tests, and the production build on pull requests and pushes to `main`.
+
+## Deploying to Cloudflare
+
+The site runs on Cloudflare Workers through the [OpenNext adapter](https://opennext.js.org/cloudflare). Worker settings live in `wrangler.jsonc`.
+
+Cloudflare Workers Builds settings:
+
+| Setting        | Value                              |
+| -------------- | ---------------------------------- |
+| Build command  | `npx opennextjs-cloudflare build`  |
+| Deploy command | `npx opennextjs-cloudflare deploy` |
+
+Variables:
+
+- **Build variables:** the six `NEXT_PUBLIC_FIREBASE_*` values. Next.js inlines them at build time.
+- **Runtime secrets (Worker → Settings → Variables and Secrets):** `FIREBASE_ADMIN_CLIENT_EMAIL` and `FIREBASE_ADMIN_PRIVATE_KEY`. The private key can be pasted with real line breaks or with `\n`.
+
+To try the Workers build locally, run `npm run preview`. Put runtime values in a `.dev.vars` file, which is git-ignored.
+
+### Why there is no firebase-admin in `src/`
+
+The Firestore client in `firebase-admin` generates code at runtime, which Cloudflare Workers block. Server code therefore reaches Firestore and Firebase Auth through their REST APIs. The REST client lives in `src/server/firebase/` and exposes the same methods the app used from `firebase-admin`. Scripts in `scripts/` run in Node, so they still use `firebase-admin`.

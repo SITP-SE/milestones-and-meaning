@@ -10,6 +10,9 @@ jest.mock('@/server/firebase/admin', () => ({
     collection: jest.fn(),
     runTransaction: jest.fn(),
   },
+  FieldValue: {
+    serverTimestamp: jest.fn(() => 'SERVER_TIMESTAMP'),
+  },
 }));
 
 jest.mock('@/server/payments/get-successful-refund-amount', () => ({

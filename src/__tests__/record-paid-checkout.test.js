@@ -1,20 +1,15 @@
 /** @jest-environment node */
 
-import { FieldValue } from 'firebase-admin/firestore';
-
-import { adminDb } from '@/server/firebase/admin';
+import { adminDb, FieldValue } from '@/server/firebase/admin';
 import { recordPaidCheckout } from '@/server/payments/record-paid-checkout';
-
-jest.mock('firebase-admin/firestore', () => ({
-  FieldValue: {
-    serverTimestamp: jest.fn(),
-  },
-}));
 
 jest.mock('@/server/firebase/admin', () => ({
   adminDb: {
     collection: jest.fn(),
     runTransaction: jest.fn(),
+  },
+  FieldValue: {
+    serverTimestamp: jest.fn(),
   },
 }));
 

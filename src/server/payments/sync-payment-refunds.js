@@ -1,6 +1,4 @@
-import { FieldValue } from 'firebase-admin/firestore';
-
-import { adminDb } from '@/server/firebase/admin';
+import { adminDb, FieldValue } from '@/server/firebase/admin';
 import { getRefundStatus } from '@/server/payments/get-refund-status';
 import { getSuccessfulRefundAmount } from '@/server/payments/get-successful-refund-amount';
 import { getStripeClient } from '@/server/stripe/client';
