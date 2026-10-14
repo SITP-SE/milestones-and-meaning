@@ -15,7 +15,6 @@ export default function ServiceHero({
   headline,
   lines,
   price,
-  deposit,
   cta,
   image,
   tone = 'linen',
@@ -46,14 +45,14 @@ export default function ServiceHero({
               ))}
             </div>
           </div>
-          {(price || deposit) && (
+          {price && (
             <p className="flex items-baseline gap-3">
               {price && (
                 <span className="font-heading text-brand text-[clamp(1.75rem,4vw,2.25rem)] leading-none font-bold">
                   {price}
                 </span>
               )}
-              {price && deposit && (
+              {price && (
                 <span aria-hidden="true" className="text-mist text-lead">
                   |
                 </span>

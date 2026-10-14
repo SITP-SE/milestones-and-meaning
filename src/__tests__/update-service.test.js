@@ -16,7 +16,6 @@ const validService = {
   title: 'Wedding Officiation',
   body: 'A personalized wedding ceremony.',
   priceCents: 59500,
-  requiresDeposit: true,
   isGiftable: true,
 };
 
@@ -69,10 +68,14 @@ describe('updateService', () => {
     );
   });
 
-  test('rejects deposits greater than service prices', () => {
-    expect(() => validateServiceUpdate({ ...validService, priceCents: 10000 })).toThrow(
-      'A service requiring a deposit must cost at least $250.',
-    );
+  test('accepts service prices below the former deposit minimum', () => {
+    const result = validateServiceUpdate({
+      ...validService,
+      priceCents: 10000,
+    });
+
+    expect(result.priceCents).toBe(10000);
+    expect(result).not.toHaveProperty('requiresDeposit');
   });
 
   test('does not allow unexpected fields to be updated', async () => {

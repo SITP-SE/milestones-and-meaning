@@ -8,7 +8,6 @@ export const services = {
     href: '/services/marriage-package',
     priceCents: 192500,
     isGiftable: true,
-    requiresDeposit: true,
     image: {
       src: '/images/service-marriage.png',
       alt: 'An open journal, wedding rings, and a pencil on linen',
@@ -23,7 +22,6 @@ export const services = {
     href: '/services/strong-start',
     priceCents: 95500,
     isGiftable: true,
-    requiresDeposit: true,
   },
   wedding_officiation: {
     order: 2,
@@ -34,7 +32,6 @@ export const services = {
     href: '/services/wedding-officiation',
     priceCents: 59500,
     isGiftable: true,
-    requiresDeposit: true,
   },
   relationship_check_in: {
     order: 3,
@@ -45,7 +42,6 @@ export const services = {
     href: '/services/relationship-check-in',
     priceCents: 0,
     isGiftable: false,
-    requiresDeposit: false,
   },
   grief_support: {
     order: 4,
@@ -56,7 +52,6 @@ export const services = {
     href: '/services/grief-support',
     priceCents: 0,
     isGiftable: false,
-    requiresDeposit: false,
   },
   funeral_memorial_officiation: {
     order: 5,
@@ -67,6 +62,5 @@ export const services = {
     href: '/services/funeral',
     priceCents: 40000,
     isGiftable: false,
-    requiresDeposit: false,
   },
 };

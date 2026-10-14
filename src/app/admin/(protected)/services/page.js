@@ -14,7 +14,6 @@ export default async function AdminServicesPage() {
     title: service.title ?? service.name ?? '',
     body: service.body ?? '',
     priceCents: service.priceCents ?? 0,
-    requiresDeposit: service.requiresDeposit === true,
     isGiftable: service.isGiftable === true,
   }));
 

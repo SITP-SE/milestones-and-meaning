@@ -13,7 +13,6 @@ const services = [
     title: 'Wedding Officiation',
     body: 'Personalized wedding ceremony.',
     priceCents: 59500,
-    requiresDeposit: true,
     isGiftable: true,
   },
   {
@@ -21,7 +20,6 @@ const services = [
     title: 'Grief Support',
     body: 'Compassionate bereavement support.',
     priceCents: 0,
-    requiresDeposit: false,
     isGiftable: false,
   },
 ];
@@ -51,7 +49,9 @@ describe('ServicesTable', () => {
 
     expect(screen.getByRole('textbox', { name: 'Price (CAD)' })).toHaveValue('595.00');
 
-    expect(screen.getByRole('checkbox', { name: 'Requires $250 deposit' })).toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Eligible for gifting' })).toBeChecked();
+
+    expect(screen.queryByRole('checkbox', { name: /deposit/i })).not.toBeInTheDocument();
 
     // Other rows must not become editable simultaneously.
     expect(screen.getByRole('button', { name: 'Edit' })).toBeDisabled();
