@@ -1,52 +1,33 @@
-import { cert, getApp, getApps, initializeApp } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
-import { getFirestore } from 'firebase-admin/firestore';
+// Server-side Firebase access with administrator privileges.
+//
+// This used to be the firebase-admin SDK. Its Firestore client cannot run on
+// Cloudflare Workers (it generates code at runtime, which Workers forbid), so
+// these objects now call the Firestore and Firebase Auth REST APIs with
+// fetch(). They keep the same method names as firebase-admin for everything
+// this app uses, so callers did not need to change.
+//
+// Credentials and emulator settings are read when a call is made:
+// - Local development: FIRESTORE_EMULATOR_HOST / FIREBASE_AUTH_EMULATOR_HOST
+//   point at the Firebase emulators and no service account is needed.
+// - Production: FIREBASE_ADMIN_CLIENT_EMAIL and FIREBASE_ADMIN_PRIVATE_KEY
+//   (Cloudflare runtime secrets) authorize the requests.
+// - CI builds make no Firebase calls, so they need no credentials.
+//
+// Scripts in /scripts run in Node and still use firebase-admin directly.
 
-const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-const clientEmail = process.env.FIREBASE_ADMIN_CLIENT_EMAIL;
-const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, '\n');
+import {
+  createSessionCookie,
+  verifyIdToken,
+  verifySessionCookie,
+} from '@/server/firebase/auth-rest';
+import { createFirestore, FieldValue, Timestamp } from '@/server/firebase/firestore-rest';
 
-const usingEmulators =
-  Boolean(process.env.FIREBASE_AUTH_EMULATOR_HOST) || Boolean(process.env.FIRESTORE_EMULATOR_HOST);
+export const adminDb = createFirestore();
 
-function getAdminOptions() {
-  // Local development should use the Firebase emulators and must not
-  // require or use production service-account credentials.
-  if (usingEmulators) {
-    return { projectId };
-  }
+export const adminAuth = {
+  verifyIdToken,
+  createSessionCookie,
+  verifySessionCookie,
+};
 
-  const hasAnyCredential = Boolean(clientEmail || privateKey);
-  const hasCompleteCredential = Boolean(clientEmail && privateKey);
-
-  // If production credentials were partially configured, fail clearly
-  // instead of silently falling back to an unexpected credential source.
-  if (hasAnyCredential && !hasCompleteCredential) {
-    throw new Error('Incomplete Firebase Admin credentials.');
-  }
-
-  // Vercel supplies these values as server-only environment variables.
-  if (hasCompleteCredential) {
-    return {
-      projectId,
-      credential: cert({
-        projectId,
-        clientEmail,
-        privateKey,
-      }),
-    };
-  }
-
-  // CI only needs to build the application, so Firebase Admin can
-  // initialize without production credentials when no API call is made.
-  return { projectId };
-}
-
-// Next.js development can reload modules multiple times.
-// Reuse the existing Firebase Admin app instead of initializing another one.
-const adminApp = getApps().length > 0 ? getApp() : initializeApp(getAdminOptions());
-
-export const adminAuth = getAuth(adminApp);
-export const adminDb = getFirestore(adminApp);
-
-export { adminApp };
+export { FieldValue, Timestamp };
