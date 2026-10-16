@@ -2,22 +2,34 @@ import Link from 'next/link';
 
 import LogoutButton from './logout-button';
 
-// Main entry point for the protected admin dashboard.
-//
-// Additional administration features will be linked
-// here as they are implemented.
+// Entry point for administrator management features.
+// Each linked section remains protected by the admin layout.
 export default function AdminPage() {
   return (
-    <main>
-      <h1>Admin Dashboard</h1>
+    <main className="mx-auto max-w-5xl px-6 py-10">
+      <h1 className="text-3xl font-semibold">Admin Dashboard</h1>
 
-      <p>You are signed in.</p>
+      <p className="mt-2">You are signed in.</p>
 
-      {/* Navigate to the service management section. */}
-      <Link href="/admin/services">Manage services</Link>
+      <nav aria-label="Admin sections" className="mt-8">
+        <ul className="flex flex-col gap-4">
+          <li>
+            <Link href="/admin/services" className="underline">
+              Manage services
+            </Link>
+          </li>
 
-      {/* End the administrator's authenticated session. */}
-      <LogoutButton />
+          <li>
+            <Link href="/admin/payments" className="underline">
+              View payments
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="mt-8">
+        <LogoutButton />
+      </div>
     </main>
   );
 }
