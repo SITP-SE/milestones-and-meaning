@@ -28,7 +28,7 @@ describe('CheckoutButton', () => {
 
     render(<CheckoutButton serviceId="strong_start" />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Pay in Full' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Proceed to Payment' }));
 
     expect(global.fetch).toHaveBeenCalledWith('/api/checkout', {
       method: 'POST',
@@ -56,12 +56,12 @@ describe('CheckoutButton', () => {
 
     render(<CheckoutButton serviceId="strong_start" />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Pay in Full' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Proceed to Payment' }));
 
     expect(await screen.findByRole('alert')).toBeInTheDocument();
 
     const button = screen.getByRole('button', {
-      name: 'Pay in Full',
+      name: 'Proceed to Payment',
     });
 
     expect(button).toBeEnabled();
@@ -86,11 +86,11 @@ describe('CheckoutButton', () => {
 
     render(<CheckoutButton serviceId="strong_start" />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Pay in Full' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Proceed to Payment' }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Unable to start secure checkout.');
 
-    expect(screen.getByRole('button', { name: 'Pay in Full' })).toBeEnabled();
+    expect(screen.getByRole('button', { name: 'Proceed to Payment' })).toBeEnabled();
   });
 
   test('handles network failures gracefully', async () => {
@@ -98,7 +98,7 @@ describe('CheckoutButton', () => {
 
     render(<CheckoutButton serviceId="strong_start" />);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Pay in Full' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Proceed to Payment' }));
 
     expect(await screen.findByRole('alert')).toHaveTextContent('Unable to start secure checkout.');
   });

@@ -30,7 +30,7 @@ export default function CheckoutButton({ serviceId }) {
       const data = await response.json();
       const url = new URL(data.url);
 
-      // Only redirect to Stripe-hosted Checkout.
+      // Only redirect to the trusted Stripe-hosted Checkout domain.
       if (url.origin !== 'https://checkout.stripe.com' || url.username || url.password) {
         throw new Error('Invalid Checkout destination.');
       }
@@ -50,7 +50,7 @@ export default function CheckoutButton({ serviceId }) {
         disabled={isLoading}
         className="bg-terracotta text-lead inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 font-medium text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-wait disabled:opacity-60"
       >
-        {isLoading ? 'Redirecting to secure checkout...' : 'Pay in Full'}
+        {isLoading ? 'Redirecting to secure checkout...' : 'Proceed to Payment'}
       </button>
 
       {error && (
