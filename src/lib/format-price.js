@@ -1,5 +1,4 @@
 export const DISCUSSED_PRICE_LABEL = 'Pricing discussed together';
-export const SERVICE_DEPOSIT_LABEL = '$250 deposit';
 
 export function formatPrice(priceCents) {
   if (typeof priceCents !== 'number' || priceCents <= 0) {

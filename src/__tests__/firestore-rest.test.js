@@ -297,4 +297,44 @@ describe('Firestore REST client', () => {
     expect(init.headers.Authorization).toBe('Bearer owner');
     expect(getGoogleAccessToken).not.toHaveBeenCalled();
   });
+
+  test('filters payments by PaymentIntent ID', async () => {
+    global.fetch.mockResolvedValue(
+      jsonResponse([
+        {
+          document: {
+            name: `${DOCUMENTS}/payments/cs_test123`,
+            fields: {
+              stripePaymentIntentId: { stringValue: 'pi_test123' },
+            },
+          },
+        },
+      ]),
+    );
+
+    const snapshot = await db
+      .collection('payments')
+      .where('stripePaymentIntentId', '==', 'pi_test123')
+      .limit(2)
+      .get();
+
+    expect(lastRequest().body).toEqual({
+      structuredQuery: {
+        from: [{ collectionId: 'payments' }],
+        where: {
+          fieldFilter: {
+            field: { fieldPath: 'stripePaymentIntentId' },
+            op: 'EQUAL',
+            value: { stringValue: 'pi_test123' },
+          },
+        },
+        limit: 2,
+      },
+    });
+
+    expect(snapshot.size).toBe(1);
+    expect(snapshot.docs[0].id).toBe('cs_test123');
+    expect(snapshot.docs[0].ref.id).toBe('cs_test123');
+    expect(snapshot.docs[0].ref.path).toBe('payments/cs_test123');
+  });
 });

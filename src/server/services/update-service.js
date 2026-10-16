@@ -24,13 +24,8 @@ export function validateServiceUpdate(data) {
     throw new Error('Invalid service price.');
   }
 
-  if (typeof data.requiresDeposit !== 'boolean' || typeof data.isGiftable !== 'boolean') {
+  if (typeof data.isGiftable !== 'boolean') {
     throw new Error('Invalid service settings.');
-  }
-
-  // The existing business rule uses a standard $250 deposit.
-  if (data.requiresDeposit && data.priceCents < 25000) {
-    throw new Error('A service requiring a deposit must cost at least $250.');
   }
 
   return {
@@ -38,7 +33,6 @@ export function validateServiceUpdate(data) {
     name: title,
     body,
     priceCents: data.priceCents,
-    requiresDeposit: data.requiresDeposit,
     isGiftable: data.isGiftable,
   };
 }

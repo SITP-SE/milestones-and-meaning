@@ -27,7 +27,6 @@ const validationErrors = new Set([
   'Description must be between 1 and 2000 characters.',
   'Invalid service price.',
   'Invalid service settings.',
-  'A service requiring a deposit must cost at least $250.',
   'Invalid service ID.',
 ]);
 
@@ -39,7 +38,6 @@ export async function saveServiceAction(_previousState, formData) {
     title: formData.get('title'),
     body: formData.get('body'),
     priceCents: parsePriceCents(formData.get('priceDollars')),
-    requiresDeposit: formData.has('requiresDeposit'),
     isGiftable: formData.has('isGiftable'),
   };
 

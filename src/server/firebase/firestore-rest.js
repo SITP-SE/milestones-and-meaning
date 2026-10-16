@@ -214,8 +214,9 @@ function toFieldPath(path) {
 // ---------------------------------------------------------------------------
 
 class DocumentSnapshot {
-  constructor(id, document) {
+  constructor(id, document, ref) {
     this.id = id;
+    this.ref = ref;
     this.exists = Boolean(document);
     this.createTime = document?.createTime ? parseTimestamp(document.createTime) : undefined;
     this.updateTime = document?.updateTime ? parseTimestamp(document.updateTime) : undefined;
@@ -231,10 +232,11 @@ class DocumentSnapshot {
   }
 }
 
-function snapshotFromDocument(document) {
+function snapshotFromDocument(document, client, collectionId) {
   const id = document.name.slice(document.name.lastIndexOf('/') + 1);
+  const ref = new DocumentReference(client, collectionId, id);
 
-  return new DocumentSnapshot(id, document);
+  return new DocumentSnapshot(id, document, ref);
 }
 
 class QuerySnapshot {
@@ -366,10 +368,14 @@ class DocumentReference {
       `${encodeURIComponent(this._collectionId)}/${encodeURIComponent(this.id)}`;
 
     try {
-      return snapshotFromDocument(await this._client.request(urlPath));
+      return snapshotFromDocument(
+        await this._client.request(urlPath),
+        this._client,
+        this._collectionId,
+      );
     } catch (error) {
       if (error.status === 404) {
-        return new DocumentSnapshot(this.id, null);
+        return new DocumentSnapshot(this.id, null, this);
       }
 
       throw error;
@@ -390,11 +396,26 @@ class DocumentReference {
 }
 
 class Query {
-  constructor(client, collectionId, orders = [], limit = null) {
+  constructor(client, collectionId, orders = [], limit = null, filter = null) {
     this._client = client;
     this._collectionId = collectionId;
     this._orders = orders;
     this._limit = limit;
+    this._filter = filter;
+  }
+
+  where(fieldPath, operator, value) {
+    if (operator !== '==' || this._filter) {
+      throw new Error('Only one equality filter is supported.');
+    }
+
+    return new Query(this._client, this._collectionId, this._orders, this._limit, {
+      fieldFilter: {
+        field: { fieldPath: toFieldPath(fieldPath) },
+        op: 'EQUAL',
+        value: encodeValue(value),
+      },
+    });
   }
 
   orderBy(fieldPath, direction = 'asc') {
@@ -407,7 +428,13 @@ class Query {
       direction: direction === 'desc' ? 'DESCENDING' : 'ASCENDING',
     };
 
-    return new Query(this._client, this._collectionId, [...this._orders, order], this._limit);
+    return new Query(
+      this._client,
+      this._collectionId,
+      [...this._orders, order],
+      this._limit,
+      this._filter,
+    );
   }
 
   limit(count) {
@@ -415,12 +442,12 @@ class Query {
       throw new Error('limit() must be a positive integer.');
     }
 
-    return new Query(this._client, this._collectionId, this._orders, count);
+    return new Query(this._client, this._collectionId, this._orders, count, this._filter);
   }
 
   async get() {
     const structuredQuery = { from: [{ collectionId: this._collectionId }] };
-
+    if (this._filter) structuredQuery.where = this._filter;
     if (this._orders.length > 0) structuredQuery.orderBy = this._orders;
     if (this._limit !== null) structuredQuery.limit = this._limit;
 
@@ -434,7 +461,7 @@ class Query {
     return new QuerySnapshot(
       results
         .filter((result) => result.document)
-        .map((result) => snapshotFromDocument(result.document)),
+        .map((result) => snapshotFromDocument(result.document, this._client, this._collectionId)),
     );
   }
 }

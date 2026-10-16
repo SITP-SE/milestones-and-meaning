@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation';
 
 import ServicePage from '@/components/services/ServicePage';
-import { getPage } from '@/server/pages/get-page';
 import { applyServicePricing } from '@/server/services/apply-service-pricing';
+import { isOnlinePaymentEligible } from '@/lib/online-payment-eligibility';
+
 import { getServiceForPage } from '@/server/services/get-services';
+import { getPage } from '@/server/pages/get-page';
 
 // Cache the rendered page for an hour. Paths are generated on first
 // request so `next build` does not need Firestore.
@@ -35,5 +37,13 @@ export default async function ServiceDetailPage({ params }) {
     notFound();
   }
 
-  return <ServicePage content={applyServicePricing(page.content, service)} />;
+  const checkoutServiceId =
+    service && isOnlinePaymentEligible(service.id, service.priceCents) ? service.id : null;
+
+  return (
+    <ServicePage
+      content={applyServicePricing(page.content, service)}
+      checkoutServiceId={checkoutServiceId}
+    />
+  );
 }

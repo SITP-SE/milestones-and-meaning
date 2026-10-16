@@ -3,26 +3,31 @@
 // This used to be the firebase-admin SDK. Its Firestore client cannot run on
 // Cloudflare Workers (it generates code at runtime, which Workers forbid), so
 // these objects now call the Firestore and Firebase Auth REST APIs with
-// fetch(). They keep the same method names as firebase-admin for everything
-// this app uses, so callers did not need to change.
+// Server-side Firebase access with administrator privileges.
 //
-// Credentials and emulator settings are read when a call is made:
-// - Local development: FIRESTORE_EMULATOR_HOST / FIREBASE_AUTH_EMULATOR_HOST
-//   point at the Firebase emulators and no service account is needed.
-// - Production: FIREBASE_ADMIN_CLIENT_EMAIL and FIREBASE_ADMIN_PRIVATE_KEY
-//   (Cloudflare runtime secrets) authorize the requests.
-// - CI builds make no Firebase calls, so they need no credentials.
+// The Firestore REST adapter runs on Cloudflare Workers without relying
+// on the Node-only Firestore Admin SDK.
 //
-// Scripts in /scripts run in Node and still use firebase-admin directly.
+// Local emulators use FIRESTORE_EMULATOR_HOST.
+// Production uses Firebase service-account credentials supplied through
+// the hosting environment's secrets.
 
 import {
   createSessionCookie,
   verifyIdToken,
   verifySessionCookie,
 } from '@/server/firebase/auth-rest';
+
 import { createFirestore, FieldValue, Timestamp } from '@/server/firebase/firestore-rest';
 
-export const adminDb = createFirestore();
+import { runFirestoreTransaction } from '@/server/firebase/firestore-transactions';
+
+// Preserve all existing Firestore methods and add real transaction support.
+// Payment and refund handlers can continue using adminDb.runTransaction().
+export const adminDb = {
+  ...createFirestore(),
+  runTransaction: runFirestoreTransaction,
+};
 
 export const adminAuth = {
   verifyIdToken,

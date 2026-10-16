@@ -42,7 +42,7 @@ function EditServiceRow({ service, onCancel, onSaved }) {
 
   return (
     <tr className="border-t bg-gray-50">
-      <td colSpan={5} className="p-4">
+      <td colSpan={4} className="p-4">
         {/* A single form inside the table cell keeps the HTML valid.
             Only this service's fields are submitted. */}
         <form action={formAction} className="space-y-4">
@@ -99,15 +99,6 @@ function EditServiceRow({ service, onCancel, onSaved }) {
           </div>
 
           <div className="flex flex-wrap gap-6">
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="requiresDeposit"
-                defaultChecked={service.requiresDeposit}
-              />
-              Requires $250 deposit
-            </label>
-
             <label className="flex items-center gap-2">
               <input type="checkbox" name="isGiftable" defaultChecked={service.isGiftable} />
               Eligible for gifting
@@ -203,8 +194,6 @@ export default function ServicesTable({ services }) {
                 </th>
 
                 <td className="p-3">{formatPrice(service.priceCents)}</td>
-
-                <td className="p-3">{service.requiresDeposit ? 'Yes' : 'No'}</td>
 
                 <td className="p-3">{service.isGiftable ? 'Yes' : 'No'}</td>
 

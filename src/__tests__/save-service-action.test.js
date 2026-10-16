@@ -23,7 +23,6 @@ function createFormData() {
   formData.set('title', 'Wedding Officiation');
   formData.set('body', 'Personalized wedding ceremony.');
   formData.set('priceDollars', '595.25');
-  formData.set('requiresDeposit', 'on');
   formData.set('isGiftable', 'on');
 
   return formData;
@@ -43,7 +42,6 @@ describe('saveServiceAction', () => {
       title: 'Wedding Officiation',
       body: 'Personalized wedding ceremony.',
       priceCents: 59525,
-      requiresDeposit: true,
       isGiftable: true,
     });
 
@@ -55,7 +53,6 @@ describe('saveServiceAction', () => {
   test('handles unchecked settings and zero pricing', async () => {
     const formData = createFormData();
 
-    formData.delete('requiresDeposit');
     formData.delete('isGiftable');
     formData.set('priceDollars', '0');
 
@@ -65,7 +62,6 @@ describe('saveServiceAction', () => {
       'wedding_officiation',
       expect.objectContaining({
         priceCents: 0,
-        requiresDeposit: false,
         isGiftable: false,
       }),
     );

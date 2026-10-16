@@ -14,14 +14,14 @@ describe('applyServicePricing', () => {
     },
   };
 
-  test('uses the live service price and deposit on the hero', () => {
+  test('uses the full service price regardless of legacy deposit settings', () => {
     const priced = applyServicePricing(content, {
       priceCents: 59500,
       requiresDeposit: true,
     });
 
     expect(priced.hero.price).toBe('$595');
-    expect(priced.hero.deposit).toBe('$250 deposit');
+    expect(priced.hero.deposit).toBeUndefined();
   });
 
   test('hides a zero price and deposit when the service is unpriced', () => {
@@ -63,5 +63,41 @@ describe('applyServicePricing', () => {
 
   test('returns the original content when no service is found', () => {
     expect(applyServicePricing(content, null)).toBe(content);
+  });
+
+  test('removes legacy deposit copy from stored page content', () => {
+    const priced = applyServicePricing(
+      {
+        ...content,
+        hero: {
+          ...content.hero,
+          deposit: '$250 deposit',
+        },
+      },
+      {
+        priceCents: 59500,
+        requiresDeposit: true,
+      },
+    );
+
+    expect(priced.hero.price).toBe('$595');
+    expect(priced.hero.deposit).toBeUndefined();
+  });
+
+  test('shows the funeral package price when direct purchase is enabled', () => {
+    const priced = applyServicePricing(
+      {
+        hero: {
+          headline: 'Funeral & Memorial Services',
+          lines: ['Compassionate support.'],
+        },
+      },
+      {
+        id: 'funeral_memorial_officiation',
+        priceCents: 40000,
+      },
+    );
+
+    expect(priced.hero.price).toBe('$400');
   });
 });
