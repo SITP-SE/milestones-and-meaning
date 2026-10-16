@@ -8,7 +8,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "dev:local": "firebase emulators:exec --ui --only auth,firestore \"npm run firebase:seed && next dev\"",
+    "dev:local": "firebase emulators:exec --ui --only auth,firestore \"npm run firebase:seed && npm run firebase:seed:payments && next dev\"",
     "start": "next start",
     "lint": "eslint",
     "test": "jest",
@@ -20,6 +20,7 @@
     "format:check": "prettier . --check",
     "firebase:emulators:start": "firebase emulators:start",
     "firebase:seed": "node scripts/seed-emulator.mjs",
+    "firebase:seed:payments": "node scripts/seed-payments-emulator.mjs",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
